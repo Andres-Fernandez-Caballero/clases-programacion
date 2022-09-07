@@ -4,8 +4,8 @@ export const config = {
     },
     internalUrls: {
         navbLinks: [
-            {link: '/', text: 'Home'},
-            {link: '/about', text: 'About'},
+            {url: '/', name: 'Home'},
+            {url: '/about', name: 'About'},
         ]
     },
 
