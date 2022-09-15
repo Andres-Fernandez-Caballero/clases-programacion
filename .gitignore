@@ -25,4 +25,8 @@ yarn-error.log*
 .vscode/
 .env
 
+<<<<<<< HEAD
 *replit*
+=======
+
+>>>>>>> 2d5c3f7998f5c79444470f65573f05c971bf9283
