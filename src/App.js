@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import { NavBar } from './components/NavBar';
 import { MainRouter } from './routes/MainRouter';
 
@@ -41,7 +39,7 @@ function App() {
     <div className="App">
       <NavBar />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1>hola {process.env['REACT_APP_NAME']}</h1>
         <p>
         🏰 Edit <code>src/App.js</code> and save to reload.
         </p>
