@@ -1,6 +1,7 @@
 export const config = {
     externalUrls: {
         pokeapi: 'https://pokeapi.co/api/v2/pokemon/poliwag',
+        calificcionTusClases: "https://www.tusclases.com.ar/opinion/andres-fernandez1678013"
     },
     internalUrls: {
         navbLinks: [
