@@ -4,8 +4,8 @@
         "module": "ES6",
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "checkJs": true,
+        "checkJs": true
     },
     "exclude": ["node_modules"],
-    "include": ["src/**/*"]
+    "include": ["src/**/*"] 
 }
