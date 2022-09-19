@@ -3,13 +3,7 @@ export const config = {
         pokeapi: 'https://pokeapi.co/api/v2/pokemon/poliwag',
         calificcionTusClases: "https://www.tusclases.com.ar/opinion/andres-fernandez1678013"
     },
-    internalUrls: {
-        navbLinks: [
-            {url: '/', name: 'Home'},
-            {url: '/about', name: 'About'},
-        ]
-    },
-
+    
     firebase: {
         apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
         authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
