@@ -5,7 +5,7 @@ export const updateHeaderInterceptor = (axiosInstance) => {
        // config.headers['Authorization'] = jwtToken
 
         return config
-    }, error => {
-        //do somtething
+    }, _error => {
+        // do somtething
     })
 }

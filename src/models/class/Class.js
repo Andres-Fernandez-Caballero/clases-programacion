@@ -1,6 +1,6 @@
 class Class {
-    constructor(){
-
+    constructor(student){
+        this.student = student
     }
 }
 

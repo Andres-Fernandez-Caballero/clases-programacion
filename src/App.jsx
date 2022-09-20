@@ -1,5 +1,4 @@
 import NavBar from 'components/NavBar';
-import React from 'react';
 import { MainRouter } from 'routes/MainRouter';
 
 function App() {
@@ -40,7 +39,7 @@ function App() {
     <div className="App">
       <NavBar />
       <header className="App-header">
-        <h1>hola {process.env['REACT_APP_NAME']}</h1>
+        <h1>hola {process.env.REACT_APP_NAME}</h1>
         <p>
         🏰 Edit <code>src/App.js</code> and save to reload.
         </p>

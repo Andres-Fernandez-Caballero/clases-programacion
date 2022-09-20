@@ -3,7 +3,6 @@ import ClassCreate from "pages/class/Create"
 import ClassList from "pages/class/List"
 import Home from "pages/Home"
 import NotFound from "pages/NotFout"
-import React from "react"
 import { Routes, Route } from "react-router-dom"
 
 

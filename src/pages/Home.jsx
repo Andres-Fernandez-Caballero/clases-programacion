@@ -1,5 +1,4 @@
 import axios from 'axios'
-import React from 'react'
 import { useEffect } from 'react'
 import { config } from 'configs/config'
 import { errorInterceptor } from 'interceptors/error'
