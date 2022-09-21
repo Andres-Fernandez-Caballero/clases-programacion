@@ -1,3 +1,3 @@
-import RouteProtecor from "./RouterProtector";
+import RouteProtecor from './RouterProtector';
 
-export default RouteProtecor
+export default RouteProtecor;

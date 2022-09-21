@@ -1,8 +1,8 @@
 class ProgramingLeanguage {
-    constructor(name, image) {
-        this.name = name
-        this.image = image
-    }
+	constructor(name, image) {
+		this.name = name;
+		this.image = image;
+	}
 }
 
-export default ProgramingLeanguage
+export default ProgramingLeanguage;

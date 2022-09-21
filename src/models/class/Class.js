@@ -1,7 +1,7 @@
 class Class {
-    constructor(student){
-        this.student = student
-    }
+	constructor(student) {
+		this.student = student;
+	}
 }
 
-export default Class
+export default Class;

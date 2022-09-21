@@ -1,3 +1,3 @@
-import ClassList from "./ClassList";
+import ClassList from './ClassList';
 
-export default ClassList
+export default ClassList;

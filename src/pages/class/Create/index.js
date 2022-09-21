@@ -1,3 +1,3 @@
-import ClassCreate from "./ClassCreate";
+import ClassCreate from './ClassCreate';
 
-export default ClassCreate
+export default ClassCreate;
