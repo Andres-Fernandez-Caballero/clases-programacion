@@ -1,26 +1,23 @@
-import axios from 'axios'
-import React from 'react'
-import { useEffect } from 'react'
-import { config } from '../configs/config'
-import { errorInterceptor } from '../interceptors/error'
-import { updateHeaderInterceptor } from '../interceptors/updateHeader'
+import axios from 'axios';
+import { useEffect } from 'react';
+import { config } from 'configs/config';
+import { errorInterceptor } from 'interceptors/error';
+import { updateHeaderInterceptor } from 'interceptors/updateHeader';
 
-export const Home = () => {
+const Home = () => {
+	const httpClient = axios.create({
+		baseURL: config.externalUrls.pokeapi,
+	});
 
-  const httpClient = axios.create({
-    baseURL: config.externalUrls.pokeapi
-  })
+	updateHeaderInterceptor(httpClient);
+	errorInterceptor(httpClient);
 
-  updateHeaderInterceptor(httpClient)
-  errorInterceptor(httpClient)
+	useEffect(() => {
+		// @ts-ignore
+		httpClient.get().then(response => console.log(response));
+	}, []);
 
-  useEffect(() => {
-    httpClient.get()
-      .then(response => console.log(response));
-  }, [])
-  
+	return <div>Home</div>;
+};
 
-  return (
-    <div>Home</div>
-  )
-}
+export default Home;
