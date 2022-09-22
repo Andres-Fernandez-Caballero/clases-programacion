@@ -1,6 +1,6 @@
 {
 	"name": "clases-programacion",
-	"version": "0.5.1",
+	"version": "0.7.1",
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
@@ -18,7 +18,8 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test --watchAll",
+		"test": "react-scripts test",
+		"test:once": "react-scripts test --watchAll=false",
 		"eject": "react-scripts eject",
 		"format": "prettier --write .",
 		"lint": "eslint . --ext .js,.jsx",
