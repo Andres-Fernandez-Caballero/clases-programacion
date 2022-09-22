@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">clases-programacion</h1>
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/Andres-Fernandez-Caballero/clases-programacion/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p align="center"> Few lines describing your project.
+    <br> 
+</p>
 
-### `npm test`
+## 📝 Table of Contents
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   [About](#about)
+-   [Getting Started](#getting_started)
+-   [Deployment](#deployment)
+-   [Usage](#usage)
+-   [Built Using](#built_using)
+-   [TODO](../TODO.md)
+-   [Contributing](../CONTRIBUTING.md)
+-   [Authors](#authors)
+-   [Acknowledgments](#acknowledgement)
 
-### `npm run build`
+## 🧐 About <a name = "about"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Una Aplicacion para gestionar alumnos y los pagos de estos utilizando de manera rapida y simple.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏁 Getting Started <a name = "getting_started"></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+What things you need to install the software and how to install them.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+Give examples
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Installing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+A step by step series of examples that tell you how to get a development env running.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Say what the step will be
 
-## Learn More
+```
+Give the example
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+And repeat
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+until finished
+```
 
-### Code Splitting
+End with an example of getting some data out of the system or using it for a little demo.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🔧 Running the tests <a name = "tests"></a>
 
-### Analyzing the Bundle Size
+Explain what these tests test and why
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Test de Punto a punto
 
-### Making a Progressive Web App
+Todavia no implementados
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Test unitarios
 
-### Advanced Configuration
+Existen dos formas de realizar los test automatizados
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Modo Interactivo
 
-### Deployment
+En este modo se abre una consola que permite realizar la ejecucion de los test de manera interactiva a travez de un menu claro
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+npm run test
+```
 
-### `npm run build` fails to minify
+#### Modo simple
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+En este modo se corren todos los test una unica vez
+
+```
+npm run test:once
+```
+
+## 🎈 Usage <a name="usage"></a>
+
+Add notes about how to use the system.
+
+## 🚀 Deployment <a name = "deployment"></a>
+
+Para desplegar el proyecto utilize
+
+```
+npm run build
+```
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+-   [firebase](https://firebase.google.com/) - server
+-   [esLint](https://eslint.org/) - code analizer
+-   [prettier](https://prettier.io/) - code formatter
+-   [React](https://reactjs.org/) - Web Framework
+-   [NodeJs](https://nodejs.org/en/) - Server Environment
+
+## ✍️ Authors <a name = "authors"></a>
+
+-   [@Andres Fernandez](https://github.com/Andres-Fernandez-Caballero/) - Idea y trabajo inicial
+
+See also the list of [contributors](https://github.com/Andres-Fernandez-Caballero/clases-programacion/graphs/contributors) who participated in this project.
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+
+-   Hat tip to anyone whose code was used
+-   Inspiration
+-   References
