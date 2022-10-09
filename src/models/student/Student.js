@@ -1,4 +1,6 @@
-class Student {
+import Entity from 'models/Entity';
+
+class Student extends Entity {
 	/**
 	 * @param {string} firstName
 	 * @param {string} lastName
@@ -6,6 +8,7 @@ class Student {
 	 * @param {string} dni
 	 */
 	constructor(firstName, lastName, bornDate, dni) {
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.bornDate = bornDate;

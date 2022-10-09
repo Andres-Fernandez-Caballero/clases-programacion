@@ -23,8 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode/
-
 .env
 
+# firestore-cli
+.firebase/*.log
+
+
+# replit enviroment
 *replit*
 
