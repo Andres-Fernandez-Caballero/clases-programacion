@@ -1,3 +1,4 @@
 #!/bin/bash
 cd .firebase
-firebase emulators:exec
+echo firebase
+firebase emulators:start --only firestore

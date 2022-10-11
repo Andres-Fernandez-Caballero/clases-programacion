@@ -19,7 +19,7 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"test:once": "npm run firebase-emulators & react-scripts test --watchAll=false",
+		"test:once": "react-scripts test --watchAll=false",
 		"eject": "react-scripts eject",
 		"format": "prettier --write .",
 		"lint": "eslint . --ext .js,.jsx",
