@@ -1,2 +1,3 @@
 dist
-*.test*
+*.d.tsx
+vite.config.ts

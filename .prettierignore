@@ -1,3 +1,2 @@
 dist
-package-lock.json
-.github
+pnpm-lock.yaml

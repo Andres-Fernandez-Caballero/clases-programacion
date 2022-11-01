@@ -1,70 +1,48 @@
 {
-	"name": "clases-programacion",
-	"version": "0.7.2",
+	"name": "audaces-projec",
 	"private": true,
-	"dependencies": {
-		"@testing-library/jest-dom": "5.16.5",
-		"@testing-library/react": "13.3.0",
-		"@testing-library/user-event": "13.5.0",
-		"axios": "0.27.2",
-		"firebase": "9.9.3",
-		"prop-types": "15.8.1",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"react-router-dom": "6.3.0",
-		"react-scripts": "5.0.1",
-		"web-vitals": "2.1.4"
-	},
+	"version": "0.0.0",
+	"type": "module",
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"test:once": "npm run firebase-emulators & react-scripts test --watchAll=false",
-		"eject": "react-scripts eject",
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"test": "vitest",
+		"test:once": "vitest --watch=false",
+		"prepare": "husky install",
 		"format": "prettier --write .",
-		"lint": "eslint . --ext .js,.jsx",
-		"lint:fix": "npm run lint -- --fix",
-		"prepare": "echo instalando firebase & npm install -g firebase-tools & husky install",
-		"firebase-emulators": "bash ./scripts/firebase_emulators_start.sh"
+		"lint": "eslint . --ext .ts,.tsx",
+		"lint:fix": "eslint . --ext .ts,.tsx --fix"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"lint-staged": {
-		"*.(js|jsx)": [
-			"npm run lint"
-		],
-		"**/*.(js|jsx|json|md)": [
-			"prettier --write"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
+	"dependencies": {
+		"@popperjs/core": "^2.11.6",
+		"bootstrap": "5.2.2",
+		"core@2.11.6": "link:popperjs/core@2.11.6",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@firebase/rules-unit-testing": "^2.0.4",
-		"@types/node": "18.7.18",
-		"eslint": "8.23.1",
-		"eslint-config-prettier": "8.5.0",
-		"eslint-config-standard": "17.0.0",
-		"eslint-plugin-import": "2.26.0",
-		"eslint-plugin-n": "15.2.5",
-		"eslint-plugin-promise": "6.0.1",
-		"eslint-plugin-react": "7.31.8",
-		"husky": "8.0.0",
-		"lint-staged": "13.0.3",
-		"prettier": "2.7.1"
+		"@testing-library/react": "^13.4.0",
+		"@types/node": "^18.11.3",
+		"@types/react": "^18.0.17",
+		"@types/react-dom": "^18.0.6",
+		"@typescript-eslint/eslint-plugin": "^5.40.1",
+		"@typescript-eslint/parser": "^5.40.1",
+		"@vitejs/plugin-react": "^2.1.0",
+		"eslint": "^8.26.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard-with-typescript": "^23.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"eslint-plugin-react": "^7.31.10",
+		"husky": "^8.0.0",
+		"jsdom": "^20.0.1",
+		"lint-staged": "^13.0.3",
+		"prettier": "^2.7.1",
+		"sass": "^1.55.0",
+		"typescript": "*",
+		"vite": "^3.1.0",
+		"vitest": "^0.24.3"
 	}
 }

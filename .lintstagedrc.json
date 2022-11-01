@@ -1,0 +1,4 @@
+{
+	"*.(ts|tsx)": ["pnpm lint", "prettier --write -u"],
+	"*.(json|md)": ["prettier --write -u"]
+}
