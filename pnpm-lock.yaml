@@ -7,7 +7,6 @@ specifiers:
   '@fontsource/roboto': ^4.5.8
   '@mui/icons-material': ^5.10.9
   '@mui/material': ^5.10.13
-  '@popperjs/core': ^2.11.6
   '@testing-library/react': ^13.4.0
   '@types/node': ^18.11.3
   '@types/react': ^18.0.17
@@ -15,7 +14,6 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.40.1
   '@typescript-eslint/parser': ^5.40.1
   '@vitejs/plugin-react': ^2.1.0
-  bootstrap: 5.2.2
   core@2.11.6: link:popperjs/core@2.11.6
   eslint: ^8.26.0
   eslint-config-prettier: ^8.5.0
@@ -43,8 +41,6 @@ dependencies:
   '@fontsource/roboto': 4.5.8
   '@mui/icons-material': 5.10.9_plf5nhzl5tc5ine6x6ffvvqqse
   '@mui/material': 5.10.13_rrrb7hooev7eucxoqykubwnawy
-  '@popperjs/core': 2.11.6
-  bootstrap: 5.2.2_@popperjs+core@2.11.6
   core@2.11.6: link:popperjs/core@2.11.6
   moment: 2.29.4
   react: 18.2.0
@@ -1175,14 +1171,6 @@ packages:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
     dev: true
-
-  /bootstrap/5.2.2_@popperjs+core@2.11.6:
-    resolution: {integrity: sha512-dEtzMTV71n6Fhmbg4fYJzQsw1N29hJKO1js5ackCgIpDcGid2ETMGC6zwSYw09v05Y+oRdQ9loC54zB1La3hHQ==}
-    peerDependencies:
-      '@popperjs/core': ^2.11.6
-    dependencies:
-      '@popperjs/core': 2.11.6
-    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
