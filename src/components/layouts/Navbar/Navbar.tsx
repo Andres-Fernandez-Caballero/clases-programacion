@@ -45,6 +45,10 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 		setAnchorElUser(null);
 	};
 
+	const handleOpenPage = (url: string) => {
+		// TODO: Implementar navegación
+	};
+
 	return (
 		<AppBar position='static'>
 			<Container maxWidth='xl'>
@@ -98,7 +102,12 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 							}}
 						>
 							{pages.map(page => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
+								<MenuItem
+									key={page}
+									onClick={() => {
+										handleOpenPage(page);
+									}}
+								>
 									<Typography textAlign='center'>{page}</Typography>
 								</MenuItem>
 							))}
