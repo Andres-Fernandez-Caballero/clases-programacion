@@ -2,11 +2,10 @@ import { Moment } from 'moment';
 import { IFirebaseEntity } from './FirebaseEntitys';
 
 export interface IClass extends IFirebaseEntity {
-	date: Moment;
-	time: Moment;
+	dateTime: Moment;
 	duration: number;
-	programingLeanguage: IProgramingLeanguaje;
-	student: IStudent;
+	programingLeanguage: IProgramingLeanguaje | undefined;
+	student: IStudent | undefined;
 }
 
 export interface IStudent extends IFirebaseEntity {
@@ -14,10 +13,9 @@ export interface IStudent extends IFirebaseEntity {
 	lastName: string;
 	email: string;
 	phone: string;
-	created: Moment;
+	created?: Moment;
 }
 
 export interface IProgramingLeanguaje extends IFirebaseEntity {
 	name: string;
-	brand: string;
 }

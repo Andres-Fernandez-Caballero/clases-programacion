@@ -1,3 +1,6 @@
+import { Moment } from 'moment';
+
 export interface IFirebaseEntity {
-	id: string;
+	id?: string;
+	created?: Moment;
 }

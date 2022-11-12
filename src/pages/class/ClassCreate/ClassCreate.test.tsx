@@ -6,8 +6,12 @@ describe('ClassCreate', () => {
 
 	it('should render', () => {
 		const { asFragment, queryByText } = render(<ClassCreate />);
-
 		expect(asFragment()).toMatchSnapshot();
-		expect(queryByText('classCreate')).toBeTruthy();
+		expect(queryByText('Alumno')).toBeTruthy();
+		expect(queryByText('Lenguaje de Programacion')).toBeTruthy();
+		expect(queryByText('Fecha')).toBeTruthy();
+		expect(queryByText('Hora')).toBeTruthy();
+		expect(queryByText('Duracion')).toBeTruthy();
+		expect(queryByText('Guardar')).toBeTruthy();
 	});
 });
