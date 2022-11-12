@@ -30,6 +30,7 @@ specifiers:
   prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-is: ^18.2.0
   sass: ^1.55.0
   styled-components: ^5.3.6
   typescript: '*'
@@ -48,7 +49,8 @@ dependencies:
   moment: 2.29.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
+  react-is: 18.2.0
+  styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
 
 devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
@@ -687,7 +689,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.19.4
       prop-types: 15.8.1
-      styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
     dev: false
 
   /@mui/styled-engine/5.10.8_dovxhg2tvkkxkdnqyoum6wzcxm:
@@ -1217,7 +1219,7 @@ packages:
       babel-plugin-syntax-jsx: 6.18.0
       lodash: 4.17.21
       picomatch: 2.3.1
-      styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
     dev: false
 
   /babel-plugin-syntax-jsx/6.18.0:
@@ -3576,7 +3578,7 @@ packages:
       acorn: 8.8.0
     dev: true
 
-  /styled-components/5.3.6_biqbaboplfbrettd7655fr4n2y:
+  /styled-components/5.3.6_7i5myeigehqah43i5u7wbekgba:
     resolution: {integrity: sha512-hGTZquGAaTqhGWldX7hhfzjnIYBZ0IXQXkCYdvF1Sq3DsUaLx6+NTHC5Jj1ooM2F68sBiVz3lvhfwQs/S3l6qg==}
     engines: {node: '>=10'}
     requiresBuild: true
@@ -3595,6 +3597,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-is: 18.2.0
       shallowequal: 1.1.0
       supports-color: 5.5.0
     dev: false
