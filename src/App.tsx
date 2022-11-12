@@ -1,12 +1,7 @@
-import Navbar from './components/layouts/Navbar';
-import { navBarLinks } from './constants/navLinks';
+import MainRouter from './routes/MainRouter';
 
 function App(): JSX.Element {
-	return (
-		<div className='App'>
-			<Navbar navLinks={navBarLinks} />
-		</div>
-	);
+	return <MainRouter />;
 }
 
 export default App;
