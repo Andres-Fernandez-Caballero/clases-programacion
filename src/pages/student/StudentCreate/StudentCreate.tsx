@@ -1,14 +1,19 @@
+import moment from 'moment';
 import { useState } from 'react';
+import { message, messageError } from '../../../components/Toast';
 import { IStudent } from '../../../interfaces/Domain';
 import { IStudentCreateDto } from '../../../interfaces/DTO';
+import { IStudentFirebaseEntity } from '../../../interfaces/FirebaseEntitys';
 import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
 
 const StudentCreate: React.FunctionComponent = () => {
 	const studentDtoInitState: IStudentCreateDto = {
 		firstName: '',
 		lastName: '',
+		dni: '',
 		email: '',
 		phone: '',
+		birthday: '',
 	};
 
 	const [studentState, setStudentState] = useState(studentDtoInitState);
@@ -26,17 +31,19 @@ const StudentCreate: React.FunctionComponent = () => {
 		const student: IStudent = {
 			firstName: studentState.firstName,
 			lastName: studentState.lastName,
+			dni: studentState.dni,
+			birthday: moment(studentState.birthday),
 			email: studentState.email,
 			phone: studentState.phone,
 		};
-		console.log('student no creado', student);
 
 		service
 			.create(student)
-			.then(result => {
-				console.log('student creado', result);
+			.then((result: IStudentFirebaseEntity) => {
+				message(result.firstName);
 			})
 			.catch(error => {
+				messageError('Se produjo un error al crear el estudiante');
 				console.log('error', error);
 			});
 	};
@@ -59,6 +66,17 @@ const StudentCreate: React.FunctionComponent = () => {
 					type='text'
 					name='lastName'
 					id='lastName'
+					onChange={handleOnChange}
+				/>
+
+				<label htmlFor='dni'>Dni</label>
+				<input type='text' name='dni' id='dni' onChange={handleOnChange} />
+
+				<label htmlFor='birthday'>Fecha de Nacimiento</label>
+				<input
+					type='date'
+					name='birthday'
+					id='birthday'
 					onChange={handleOnChange}
 				/>
 
