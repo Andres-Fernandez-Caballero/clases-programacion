@@ -23,6 +23,8 @@
 		"@mui/icons-material": "^5.10.9",
 		"@mui/material": "^5.10.13",
 		"@mui/styled-engine-sc": "^5.10.6",
+		"@mui/system": "5.4.1",
+		"@mui/x-date-pickers": "^5.0.10",
 		"core@2.11.6": "link:popperjs/core@2.11.6",
 		"moment": "^2.29.4",
 		"react": "^18.2.0",

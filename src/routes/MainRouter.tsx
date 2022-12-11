@@ -4,7 +4,7 @@ import { navBarLinks } from '../constants/navLinks';
 import About from '../pages/About';
 import ClassCreate from '../pages/class/ClassCreate';
 import Home from '../pages/Home';
-import StudentCreate from '../pages/student/StudentCreate/StudentCreate';
+import StudentCreate from '../pages/student/StudentCreate';
 
 const MainRouter = () => {
 	return (
