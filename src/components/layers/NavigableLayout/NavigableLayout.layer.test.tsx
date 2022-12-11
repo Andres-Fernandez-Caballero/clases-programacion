@@ -1,4 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import NavigableLayout, { NavigableLayoutProps } from './NavigableLayout.layer';
 
 describe('NavigableLayour', () => {
@@ -13,9 +14,11 @@ describe('NavigableLayour', () => {
 	it('should render', () => {
 		const props = { ...defaultProps };
 		const { asFragment, queryByText } = render(
-			<NavigableLayout {...props}>
-				<div>Test</div>
-			</NavigableLayout>
+			<BrowserRouter>
+				<NavigableLayout {...props}>
+					<div>Test</div>
+				</NavigableLayout>
+			</BrowserRouter>
 		);
 
 		expect(asFragment()).toMatchSnapshot();

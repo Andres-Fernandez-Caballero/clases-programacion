@@ -1,5 +1,3 @@
-const Home: React.FunctionComponent = () => {
+export const Home: React.FunctionComponent = () => {
 	return <>Home</>;
 };
-
-export default Home;

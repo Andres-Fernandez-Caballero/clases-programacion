@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
 
 export interface NavbarProps {
 	navLinks: ILink[];
@@ -21,7 +22,8 @@ export interface NavbarProps {
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
-	const pages = navLinks.map((link: ILink) => link.name);
+	const navigate = useNavigate();
+	const pages = navLinks;
 
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
@@ -46,7 +48,7 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 	};
 
 	const handleOpenPage = (url: string) => {
-		// TODO: Implementar navegación
+		navigate(url);
 	};
 
 	return (
@@ -103,12 +105,12 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 						>
 							{pages.map(page => (
 								<MenuItem
-									key={page}
+									key={page.name}
 									onClick={() => {
-										handleOpenPage(page);
+										handleOpenPage(page.url);
 									}}
 								>
-									<Typography textAlign='center'>{page}</Typography>
+									<Typography textAlign='center'>{page.name}</Typography>
 								</MenuItem>
 							))}
 						</Menu>
@@ -135,11 +137,12 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map(page => (
 							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
+								data-testid={page.name}
+								key={page.name}
+								onClick={() => handleOpenPage(page.url)}
 								sx={{ my: 2, color: 'white', display: 'block' }}
 							>
-								{page}
+								{page.name}
 							</Button>
 						))}
 					</Box>

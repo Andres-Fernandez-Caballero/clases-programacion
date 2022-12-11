@@ -9,4 +9,6 @@ export interface IStudentCreateDto {
 	lastName: string;
 	email: string;
 	phone: string;
+	birthDate: string;
+	dni: string;
 }
