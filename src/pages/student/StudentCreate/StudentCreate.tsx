@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { Fab, FormControl, styled, TextField } from '@mui/material';
+import moment from 'moment';
 import { useState } from 'react';
+import { messageError } from '../../../components/Toast';
 import { IStudent } from '../../../interfaces/Domain';
 import { IStudentCreateDto } from '../../../interfaces/DTO';
 import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
@@ -16,10 +18,10 @@ const StudentCreate: React.FunctionComponent = () => {
 	const studentDtoInitState: IStudentCreateDto = {
 		firstName: '',
 		lastName: '',
+		dni: '',
 		email: '',
 		phone: '',
-		birthDate: '',
-		dni: '',
+		birthday: '',
 	};
 
 	const [studentState, setStudentState] = useState(studentDtoInitState);
@@ -37,18 +39,21 @@ const StudentCreate: React.FunctionComponent = () => {
 		const student: IStudent = {
 			firstName: studentState.firstName,
 			lastName: studentState.lastName,
+			dni: studentState.dni,
+			birthday: moment(studentState.birthday),
 			email: studentState.email,
 			phone: studentState.phone,
 		};
-		console.log('student no creado', student);
 
 		service
 			.create(student)
+
 			.then(result => {
 				alert('usuario creado');
 				console.log('student creado', result);
 			})
 			.catch(error => {
+				messageError('Se produjo un error al crear el estudiante');
 				console.log('error', error);
 			});
 	};

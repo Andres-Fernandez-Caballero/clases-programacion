@@ -1,24 +1,30 @@
-import moment from 'moment';
+import { firebaseApp } from '../../firebase/instance';
+import {
+	addDoc,
+	collection,
+	DocumentReference,
+	Firestore,
+	getFirestore,
+} from 'firebase/firestore';
 import { IFirebaseEntity } from '../../interfaces/FirebaseEntitys';
 
 class FirebaseService<T extends IFirebaseEntity> {
 	private readonly folder: string;
+	private readonly db: Firestore;
 
 	constructor(folder: string) {
 		this.folder = folder;
+		this.db = getFirestore(firebaseApp);
 	}
 
 	public async create(data: T): Promise<T> {
-		// simula la creación de un registro en la base de datos
-		const id = Math.random().toString(36).substring(2);
-		const created = moment();
+		const newData: T = { ...data };
+		const docRef: DocumentReference = await addDoc(
+			collection(this.db, this.folder),
+			newData
+		);
 
-		const result: T = {
-			...data,
-			id,
-			created,
-		};
-		return result;
+		return { ...newData, id: docRef.id };
 	}
 }
 

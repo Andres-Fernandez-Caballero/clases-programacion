@@ -1,21 +1,23 @@
 import { Moment } from 'moment';
-import { IFirebaseEntity } from './FirebaseEntitys';
 
-export interface IClass extends IFirebaseEntity {
+export interface IClass {
 	dateTime: Moment;
 	duration: number;
-	programingLeanguage: IProgramingLeanguaje | undefined;
-	student: IStudent | undefined;
+	programingLeanguage: IProgramingLeanguaje;
+	student: IStudent;
 }
 
-export interface IStudent extends IFirebaseEntity {
+export interface IStudent {
 	firstName: string;
 	lastName: string;
+	dni: string;
 	email: string;
 	phone: string;
-	created?: Moment;
+	lastClass?: Moment;
+	firstClass?: Moment;
+	birthday: Moment;
 }
 
-export interface IProgramingLeanguaje extends IFirebaseEntity {
+export interface IProgramingLeanguaje {
 	name: string;
 }
