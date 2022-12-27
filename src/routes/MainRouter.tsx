@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import NavigableLayour from '../components/layers/NavigableLayout';
 import { navBarLinks } from '../constants/navLinks';
-import About from '../pages/About';
 import ClassCreate from '../pages/class/ClassCreate';
 import Home from '../pages/Home';
 import StudentCreate from '../pages/student/StudentCreate';
@@ -11,7 +10,6 @@ const MainRouter = () => {
 		<NavigableLayour navBarLinks={navBarLinks}>
 			<Routes>
 				<Route path='/' index element={<Home />} />
-				<Route path='/About' index element={<About />} />
 				<Route path='class' element={<ClassCreate />}>
 					<Route path='create' element={<ClassCreate />} />
 				</Route>
