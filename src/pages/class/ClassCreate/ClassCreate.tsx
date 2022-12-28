@@ -1,5 +1,9 @@
+import { TextField } from '@mui/material';
 import { useState } from 'react';
+import { programingLanguages } from '../../../constants/programingLanguages';
+import { IProgramingLeanguaje } from '../../../interfaces/Domain';
 import { IClassCreateDto } from '../../../interfaces/DTO';
+import { FormControlCustom } from '../../../styled/Forms.styled';
 
 const ClassCreate: React.FunctionComponent = () => {
 	const classDtoInitState: IClassCreateDto = {
@@ -38,16 +42,32 @@ const ClassCreate: React.FunctionComponent = () => {
 				</select>
 				<label htmlFor='course'>Lenguaje de Programacion</label>
 				<select name='programingLeanguaje' id='course'>
-					<option value='1'>Java</option>
-					<option value='2'>C++</option>
-					<option value='3'>Python</option>
+					{programingLanguages.map((language: IProgramingLeanguaje) => (
+						<option key={language.name} value={language.name}>
+							{language.name}
+						</option>
+					))}
 				</select>
 
-				<label htmlFor='date'>Fecha</label>
-				<input type='date' name='date' id='date' onChange={handleDateChange} />
+				<FormControlCustom>
+					<TextField
+						id='date'
+						label='Fecha de la clase'
+						name='date'
+						type='date'
+						onChange={handleDateChange}
+					/>
+				</FormControlCustom>
 
-				<label htmlFor='time'>Hora</label>
-				<input type='time' name='time' id='time' onChange={handleTimeChange} />
+				<FormControlCustom>
+					<TextField
+						id='time'
+						label='Hora de inicio de la clase'
+						name='time'
+						type='time'
+						onChange={handleTimeChange}
+					/>
+				</FormControlCustom>
 
 				<label htmlFor='duration'>Duracion</label>
 				<input
