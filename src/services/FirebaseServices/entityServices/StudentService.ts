@@ -16,12 +16,23 @@ class StudentService extends Service<IStudent, IStudentFirebaseEntity> {
 		return await this.getEntityService().create(entity);
 	}
 
+	async getAll(): Promise<IStudent[]> {
+		const entities: IStudentFirebaseEntity[] =
+			await this.getEntityService().getAll();
+		return entities.map(entity => this.transformEntityToModel(entity));
+	}
+
 	transformModelToEntity(model: IStudent): IStudentFirebaseEntity {
 		return {
 			...model,
 			birthday: moment(model.birthday).format('YYYY-MM-DD'),
-			firstClass: moment().format('YYYY-MM-DD'),
-			lastClass: moment().format('YYYY-MM-DD'),
+		};
+	}
+
+	transformEntityToModel(entity: IStudentFirebaseEntity): IStudent {
+		return {
+			...entity,
+			birthday: moment(entity.birthday),
 		};
 	}
 }

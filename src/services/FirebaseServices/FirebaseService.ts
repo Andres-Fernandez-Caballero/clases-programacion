@@ -5,6 +5,7 @@ import {
 	DocumentReference,
 	Firestore,
 	getFirestore,
+	getDocs,
 } from 'firebase/firestore';
 import { IFirebaseEntity } from '../../interfaces/FirebaseEntitys';
 
@@ -25,6 +26,14 @@ class FirebaseService<T extends IFirebaseEntity> {
 		);
 
 		return { ...newData, id: docRef.id };
+	}
+
+	public async getAll(): Promise<T[]> {
+		const querySnapshot = await getDocs(collection(this.db, this.folder));
+		return querySnapshot.docs.map(doc => {
+			const data = doc.data() as T;
+			return { ...data, id: doc.id };
+		});
 	}
 }
 

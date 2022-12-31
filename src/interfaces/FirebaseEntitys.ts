@@ -1,4 +1,5 @@
 export interface IFirebaseEntity {
+	id?: string;
 	created?: string;
 }
 
@@ -16,8 +17,6 @@ export interface IStudentFirebaseEntity extends IFirebaseEntity {
 	email: string;
 	phone: string;
 	birthday: string;
-	lastClass?: string;
-	firstClass?: string;
 }
 
 export interface IProgramingLeanguajeFirebaseEntity extends IFirebaseEntity {
