@@ -16,7 +16,7 @@ export interface IStudentFirebaseEntity extends IFirebaseEntity {
 	dni: string;
 	email: string;
 	phone: string;
-	birthday: string;
+	birthDate: string;
 }
 
 export interface IProgramingLeanguajeFirebaseEntity extends IFirebaseEntity {

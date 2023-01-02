@@ -16,6 +16,7 @@ class FirebaseService<T extends IFirebaseEntity> {
 	constructor(folder: string) {
 		this.folder = folder;
 		this.db = getFirestore(firebaseApp);
+		console.log('this.db', this.db);
 	}
 
 	public async create(data: T): Promise<T> {
@@ -24,7 +25,7 @@ class FirebaseService<T extends IFirebaseEntity> {
 			collection(this.db, this.folder),
 			newData
 		);
-
+		console.log('Document written with ID: ', docRef.id);
 		return { ...newData, id: docRef.id };
 	}
 

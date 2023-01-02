@@ -10,7 +10,10 @@ class StudentService extends Service<IStudent, IStudentFirebaseEntity> {
 	}
 
 	async create(model: IStudent): Promise<IStudentFirebaseEntity> {
+		console.log('almacenando...');
 		const entity: IStudentFirebaseEntity = this.transformModelToEntity(model);
+		console.log('entity', entity);
+
 		entity.created = moment().format('YYYY-MM-DD');
 
 		return await this.getEntityService().create(entity);
@@ -25,14 +28,14 @@ class StudentService extends Service<IStudent, IStudentFirebaseEntity> {
 	transformModelToEntity(model: IStudent): IStudentFirebaseEntity {
 		return {
 			...model,
-			birthday: moment(model.birthday).format('YYYY-MM-DD'),
+			birthDate: moment(model.birthDate).format('YYYY-MM-DD'),
 		};
 	}
 
 	transformEntityToModel(entity: IStudentFirebaseEntity): IStudent {
 		return {
 			...entity,
-			birthday: moment(entity.birthday),
+			birthDate: moment(entity.birthDate),
 		};
 	}
 }

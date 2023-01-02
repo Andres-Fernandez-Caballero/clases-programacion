@@ -16,9 +16,9 @@ abstract class Service<T, E extends IFirebaseEntity> {
 
 	abstract getAll(): Promise<T[]>;
 
-	abstract transformModelToEntity(model: T): E;
+	protected abstract transformModelToEntity(model: T): E;
 
-	abstract transformEntityToModel(entity: E): T;
+	protected abstract transformEntityToModel(entity: E): T;
 }
 
 export default Service;

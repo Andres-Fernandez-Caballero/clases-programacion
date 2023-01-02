@@ -17,7 +17,7 @@ export interface IStudent extends IDomain {
 	dni: string;
 	email: string;
 	phone: string;
-	birthday?: Moment;
+	birthDate?: Moment;
 }
 
 export interface IProgramingLeanguaje extends IDomain {

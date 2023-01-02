@@ -14,5 +14,5 @@ export interface IStudentCreateDto {
 	dni: string;
 	email: string;
 	phone: string;
-	birthday: string;
+	birthDate: string;
 }
