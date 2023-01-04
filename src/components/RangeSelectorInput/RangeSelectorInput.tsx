@@ -6,17 +6,17 @@ function valuetext(value: number) {
 }
 
 export interface RangeSelectorInputProps {
-	onChange: unknown;
+	onChange: (event: Event, newValue: number | number[]) => void;
 	rangeMax: number;
 	step: number;
-	defaultValue: number;
+	value: number;
 }
 
 export const RangeSelectorInput: React.FC<RangeSelectorInputProps> = ({
 	onChange,
 	rangeMax = 10,
 	step = 1,
-	defaultValue = 1,
+	value = 1,
 }: RangeSelectorInputProps) => {
 	const marks = [];
 	let displaylabel = false;
@@ -32,8 +32,8 @@ export const RangeSelectorInput: React.FC<RangeSelectorInputProps> = ({
 		<Box sx={{ width: 330 }}>
 			<label>Duracion de la clase</label>
 			<Slider
+				onChange={onChange}
 				aria-label='Always visible'
-				defaultValue={defaultValue}
 				max={rangeMax}
 				getAriaValueText={valuetext}
 				step={step}

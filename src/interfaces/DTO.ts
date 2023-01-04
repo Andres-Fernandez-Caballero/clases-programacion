@@ -1,11 +1,9 @@
-import { IProgramingLeanguaje, IStudent } from './Domain';
-
 export interface IClassCreateDto {
 	date: string;
 	time: string;
-	duration: number;
-	programingLanguage?: IProgramingLeanguaje;
-	student?: IStudent;
+	duration: number | number[];
+	programingLanguageName: string;
+	studentDni: string;
 }
 
 export interface IStudentCreateDto {
