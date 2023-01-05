@@ -1,7 +1,7 @@
 import { IFirebaseEntity } from '../interfaces/FirebaseEntitys';
 import FirebaseService from './FirebaseServices/FirebaseService';
 
-abstract class Service<T, E extends IFirebaseEntity> {
+abstract class Service<E extends IFirebaseEntity> {
 	private readonly entityService: FirebaseService<E>;
 
 	constructor(folder: string) {
@@ -12,13 +12,9 @@ abstract class Service<T, E extends IFirebaseEntity> {
 		return this.entityService;
 	}
 
-	abstract create(model: T): Promise<E>;
+	abstract create(entity: E): Promise<E>;
 
-	abstract getAll(): Promise<T[]>;
-
-	protected abstract transformModelToEntity(model: T): E;
-
-	protected abstract transformEntityToModel(entity: E): T;
+	abstract getAll(): Promise<E[]>;
 }
 
 export default Service;

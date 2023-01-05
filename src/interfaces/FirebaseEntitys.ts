@@ -1,24 +1,16 @@
+import { IClass, IProgramingLeanguaje, IStudent, ITicket } from './Domain';
+
 export interface IFirebaseEntity {
 	id?: string;
 	created?: string;
 }
 
-export interface IClassFirebaseEntity extends IFirebaseEntity {
-	dateTime: string;
-	duration: number;
-	programingLeanguage: IProgramingLeanguajeFirebaseEntity;
-	student: IStudentFirebaseEntity;
-}
+export interface IClassFirebaseEntity extends IFirebaseEntity, IClass {}
 
-export interface IStudentFirebaseEntity extends IFirebaseEntity {
-	firstName: string;
-	lastName: string;
-	dni: string;
-	email: string;
-	phone: string;
-	birthDate: string;
-}
+export interface IStudentFirebaseEntity extends IFirebaseEntity, IStudent {}
 
-export interface IProgramingLeanguajeFirebaseEntity extends IFirebaseEntity {
-	name: string;
-}
+export interface IProgramingLeanguajeFirebaseEntity
+	extends IFirebaseEntity,
+		IProgramingLeanguaje {}
+
+export interface ITicketFirebaseEntity extends IFirebaseEntity, ITicket {}

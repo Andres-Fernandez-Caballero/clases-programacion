@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { Fab, FormControl, styled, TextField } from '@mui/material';
-import moment from 'moment';
+import { FormControl, styled, TextField } from '@mui/material';
 import { useState } from 'react';
 import { messageError } from '../../../components/Toast';
-import { IStudentCreateDto } from '../../../interfaces/DTO';
 import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
-import NavigationIcon from '@mui/icons-material/Navigation';
+
 import FormLayout from '../../../components/layers/FormLayout';
 import { IStudentFirebaseEntity } from '../../../interfaces/FirebaseEntitys';
+import FabSubmit from '../../../components/FabSubmit';
 
 const FormControlCustom = styled(FormControl)(({ theme }) => ({
 	margin: theme.spacing(1),
@@ -15,7 +14,7 @@ const FormControlCustom = styled(FormControl)(({ theme }) => ({
 }));
 
 const StudentCreate: React.FunctionComponent = () => {
-	const studentDtoInitState: IStudentCreateDto = {
+	const studentDtoInitState: IStudentFirebaseEntity = {
 		firstName: '',
 		lastName: '',
 		dni: '',
@@ -38,10 +37,7 @@ const StudentCreate: React.FunctionComponent = () => {
 
 		const studentService = new StudentService();
 		studentService
-			.create({
-				...studentState,
-				birthDate: moment(studentState.birthDate),
-			})
+			.create(studentState)
 			.then((student: IStudentFirebaseEntity) => {
 				console.log(student);
 			})
@@ -115,15 +111,7 @@ const StudentCreate: React.FunctionComponent = () => {
 				/>
 			</FormControlCustom>
 
-			<Fab
-				variant='extended'
-				type='submit'
-				color='primary'
-				sx={{ position: 'absolute', bottom: 36, right: 36 }}
-			>
-				<NavigationIcon sx={{ mr: 1 }} />
-				Guardar
-			</Fab>
+			<FabSubmit text='guardar' />
 		</form>
 	);
 };

@@ -1,33 +1,69 @@
 import {
 	Box,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 	FormControl,
 	InputLabel,
 	MenuItem,
 	Select,
 	SelectChangeEvent,
+	Slide,
 	TextField,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { useEffect, useState } from 'react';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import FabSubmit from '../../../components/FabSubmit';
 import FormLayout from '../../../components/layers/FormLayout';
 import RangeSelectorInput from '../../../components/RangeSelectorInput';
 import { programingLanguages } from '../../../constants/programingLanguages';
 import { IProgramingLeanguaje, IStudent } from '../../../interfaces/Domain';
-import { IClassCreateDto } from '../../../interfaces/DTO';
+import { TransitionProps } from '@mui/material/transitions';
+import {
+	IClassFirebaseEntity,
+	IStudentFirebaseEntity,
+} from '../../../interfaces/FirebaseEntitys';
+import ClassService from '../../../services/FirebaseServices/entityServices/ClassService';
 import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
 import { FormControlCustom } from '../../../styled/Forms.styled';
+import { CLASS_PRICE } from '../../../constants/price';
+
+const Transition = React.forwardRef(function Transition(
+	props: TransitionProps & {
+		children: React.ReactElement<
+			unknown,
+			string | React.JSXElementConstructor<unknown>
+		>;
+	},
+	ref: React.Ref<unknown>
+) {
+	return <Slide direction='up' ref={ref} {...props} />;
+});
 
 const ClassCreate: React.FunctionComponent = () => {
-	const classDtoInitState: IClassCreateDto = {
-		date: '',
-		time: '',
+	const classDtoInitState: IClassFirebaseEntity = {
+		dateTime: moment().format('YYYY-MM-DDTHH:mm'),
 		duration: 1,
-		programingLanguageName: '',
-		studentDni: '',
+		programingLeanguage: { name: '' },
+		student: {
+			dni: moment().format('YYYYMMDDHHmmss'),
+			firstName: '',
+			lastName: '',
+			email: '',
+			phone: '',
+			birthDate: '',
+		},
 	};
 
 	const [classState, setClassState] = useState(classDtoInitState);
 	const [students, setStudents] = useState([] as IStudent[]);
+	const [popUpVisible, setPopUpVisible] = useState(false);
+	const [price, setPrice] = useState(CLASS_PRICE);
+
 	useEffect(() => {
 		const serviceStudent = new StudentService();
 		serviceStudent
@@ -40,17 +76,38 @@ const ClassCreate: React.FunctionComponent = () => {
 			});
 	}, []);
 
+	const handleClickOpen = () => {
+		setPopUpVisible(true);
+	};
+	const handleClose = () => {
+		setPopUpVisible(false);
+	};
+
 	const handleOnChangeProgramingLeanguaje = (event: SelectChangeEvent) => {
 		setClassState({
 			...classState,
-			programingLanguageName: event.target.value,
+			programingLeanguage: { name: event.target.value },
 		});
 	};
 
 	const handleOnChangeStudent = (event: SelectChangeEvent) => {
+		const studentFind = students.find(
+			(student: IStudent) => student.dni === event.target.value
+		);
+
 		setClassState({
 			...classState,
-			studentDni: event.target.value,
+			student:
+				studentFind !== undefined
+					? studentFind
+					: {
+							dni: '',
+							firstName: '',
+							lastName: '',
+							email: '',
+							phone: '',
+							birthDate: '',
+					  },
 		});
 	};
 
@@ -65,18 +122,61 @@ const ClassCreate: React.FunctionComponent = () => {
 	const handleChangeRange = (event: Event, newValue: number | number[]) => {
 		setClassState({
 			...classState,
-			duration: newValue,
+			duration: newValue as number,
 		});
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		const valorDelaClase = prompt('Ingrese el valor de la clase');
+		const serviceClass = new ClassService();
+		serviceClass
+			.create(classState)
+			.then((classFromDatabase: IClassFirebaseEntity) => {
+				console.table(classFromDatabase);
+				alert('Clase registrada con exito');
+				console.log(valorDelaClase);
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	};
 
 	return (
 		<>
+			<Dialog
+				open={popUpVisible}
+				TransitionComponent={Transition}
+				keepMounted
+				onClose={handleClose}
+				aria-describedby='alert-dialog-slide-description'
+			>
+				<DialogTitle>{'Ticket'}</DialogTitle>
+				<DialogContent>
+					<DialogContentText id='price-input'>
+						<TextField
+							id='price'
+							label='Valor de la clase'
+							name='price'
+							type='number'
+							onChange={event => {
+								setPrice(Number(event.target.value));
+							}}
+							value={price}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose}>Disagree</Button>
+					<Button onClick={handleClose}>Agree</Button>
+				</DialogActions>
+			</Dialog>
+
 			<FormLayout>
-				<h1>classCreate</h1>
+				<h1>Registrar Clase</h1>
 
 				<form onSubmit={handleSubmit}>
 					<Grid2 container spacing={2}>
@@ -87,11 +187,11 @@ const ClassCreate: React.FunctionComponent = () => {
 									<Select
 										labelId='alumno-select-label'
 										id='alumno-select'
-										value={classState.studentDni}
+										value={classState.student.dni}
 										label='Alumno'
 										onChange={handleOnChangeStudent}
 									>
-										{students.map((student: IStudent) => (
+										{students.map((student: IStudentFirebaseEntity) => (
 											<MenuItem key={student.id} value={student.dni}>
 												{`${student.firstName} ${student.lastName} DNI: ${student.dni}`}
 											</MenuItem>
@@ -108,9 +208,9 @@ const ClassCreate: React.FunctionComponent = () => {
 									</InputLabel>
 									<Select
 										labelId='leanguaje-select-label'
-										id='leanguaje-select'
-										value={classState.programingLanguageName}
 										label='Lenguaje de Programacion'
+										id='leanguaje-select'
+										value={classState.programingLeanguage.name}
 										onChange={handleOnChangeProgramingLeanguaje}
 									>
 										{programingLanguages.map(
@@ -134,31 +234,22 @@ const ClassCreate: React.FunctionComponent = () => {
 							/>
 						</Grid2>
 						<Grid2 xs={12} md={6}>
-							<FormControlCustom>
+							<FormControlCustom fullWidth>
 								<TextField
 									id='date'
 									label='Fecha de la clase'
-									name='date'
-									type='date'
+									name='dateTime'
+									type='datetime-local'
 									onChange={handleOnChange}
+									value={classState.dateTime}
+									InputLabelProps={{
+										shrink: true,
+									}}
 								/>
 							</FormControlCustom>
 						</Grid2>
-						<Grid2 xs={12} md={6}>
-							<FormControlCustom>
-								<TextField
-									id='time'
-									label='Hora de inicio de la clase'
-									name='time'
-									type='time'
-									onChange={handleOnChange}
-								/>
-							</FormControlCustom>
-						</Grid2>
-
-						<button type='submit' className='btn btn-primary'>
-							Guardar
-						</button>
+						<Button onClick={handleClickOpen}>open</Button>
+						<FabSubmit />
 					</Grid2>
 				</form>
 			</FormLayout>

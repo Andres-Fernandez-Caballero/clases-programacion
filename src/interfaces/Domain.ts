@@ -1,25 +1,27 @@
-import { Moment } from 'moment';
-
-export interface IDomain {
-	id?: string;
-}
-
-export interface IClass extends IDomain {
-	dateTime: Moment;
+export interface IClass {
+	dateTime: string;
 	duration: number;
 	programingLeanguage: IProgramingLeanguaje;
 	student: IStudent;
 }
 
-export interface IStudent extends IDomain {
+export interface IStudent {
 	firstName: string;
 	lastName: string;
 	dni: string;
 	email: string;
 	phone: string;
-	birthDate?: Moment;
+	birthDate: string;
 }
 
-export interface IProgramingLeanguaje extends IDomain {
+export interface IProgramingLeanguaje {
 	name: string;
+}
+
+export interface ITicket {
+	amount: number;
+	class: IClass;
+	isPaid: boolean;
+	date: string; // date of the ticket;
+	paymentDate?: string | ''; // date of the payment;
 }
