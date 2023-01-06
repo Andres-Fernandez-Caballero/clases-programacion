@@ -1,28 +1,21 @@
 import {
 	Box,
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
 	FormControl,
 	InputLabel,
 	MenuItem,
 	Select,
 	SelectChangeEvent,
-	Slide,
 	TextField,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import FabSubmit from '../../../components/FabSubmit';
 import FormLayout from '../../../components/layers/FormLayout';
 import RangeSelectorInput from '../../../components/RangeSelectorInput';
 import { programingLanguages } from '../../../constants/programingLanguages';
 import { IProgramingLeanguaje, IStudent } from '../../../interfaces/Domain';
-import { TransitionProps } from '@mui/material/transitions';
 import {
 	IClassFirebaseEntity,
 	IStudentFirebaseEntity,
@@ -31,18 +24,9 @@ import ClassService from '../../../services/FirebaseServices/entityServices/Clas
 import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
 import { FormControlCustom } from '../../../styled/Forms.styled';
 import { CLASS_PRICE } from '../../../constants/price';
-
-const Transition = React.forwardRef(function Transition(
-	props: TransitionProps & {
-		children: React.ReactElement<
-			unknown,
-			string | React.JSXElementConstructor<unknown>
-		>;
-	},
-	ref: React.Ref<unknown>
-) {
-	return <Slide direction='up' ref={ref} {...props} />;
-});
+import DialogTicket from '../../../components/DialogTicket';
+import TicketService from '../../../services/FirebaseServices/TicketService';
+import { message, messageError } from '../../../components/Toast';
 
 const ClassCreate: React.FunctionComponent = () => {
 	const classDtoInitState: IClassFirebaseEntity = {
@@ -76,11 +60,17 @@ const ClassCreate: React.FunctionComponent = () => {
 			});
 	}, []);
 
-	const handleClickOpen = () => {
+	const openDoalogTicket = () => {
 		setPopUpVisible(true);
 	};
 	const handleClose = () => {
 		setPopUpVisible(false);
+	};
+
+	const handleOnChangePrice = (
+		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		setPrice(Number(event.target.value));
 	};
 
 	const handleOnChangeProgramingLeanguaje = (event: SelectChangeEvent) => {
@@ -126,58 +116,45 @@ const ClassCreate: React.FunctionComponent = () => {
 		});
 	};
 
+	const handleOnConfirm = () => {
+		const classService = new ClassService();
+		const ticketService = new TicketService();
+
+		Promise.allSettled([
+			classService.create(classState),
+			ticketService.create({
+				amount: price * classState.duration,
+				date: moment().format('YYYY-MM-DD'),
+				class: classState,
+				isPaid: false,
+			}),
+		])
+			.then(response => {
+				message('Clase registrada con exito');
+			})
+			.catch(() => {
+				messageError('Error al registrar la clase');
+			});
+	};
+
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const valorDelaClase = prompt('Ingrese el valor de la clase');
-		const serviceClass = new ClassService();
-		serviceClass
-			.create(classState)
-			.then((classFromDatabase: IClassFirebaseEntity) => {
-				console.table(classFromDatabase);
-				alert('Clase registrada con exito');
-				console.log(valorDelaClase);
-			})
-			.catch(error => {
-				console.error(error);
-			});
+
+		openDoalogTicket();
 	};
 
 	return (
 		<>
-			<Dialog
-				open={popUpVisible}
-				TransitionComponent={Transition}
-				keepMounted
-				onClose={handleClose}
-				aria-describedby='alert-dialog-slide-description'
-			>
-				<DialogTitle>{'Ticket'}</DialogTitle>
-				<DialogContent>
-					<DialogContentText id='price-input'>
-						<TextField
-							id='price'
-							label='Valor de la clase'
-							name='price'
-							type='number'
-							onChange={event => {
-								setPrice(Number(event.target.value));
-							}}
-							value={price}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose}>Disagree</Button>
-					<Button onClick={handleClose}>Agree</Button>
-				</DialogActions>
-			</Dialog>
-
+			<DialogTicket
+				popUpVisible={popUpVisible}
+				handleClose={handleClose}
+				handleChangePrice={handleOnChangePrice}
+				handleOnConfirm={handleOnConfirm}
+				price={price}
+				classState={classState}
+			/>
 			<FormLayout>
 				<h1>Registrar Clase</h1>
-
 				<form onSubmit={handleSubmit}>
 					<Grid2 container spacing={2}>
 						<Grid2 xs={12} md={4}>
@@ -248,7 +225,6 @@ const ClassCreate: React.FunctionComponent = () => {
 								/>
 							</FormControlCustom>
 						</Grid2>
-						<Button onClick={handleClickOpen}>open</Button>
 						<FabSubmit />
 					</Grid2>
 				</form>
