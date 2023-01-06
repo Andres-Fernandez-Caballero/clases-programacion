@@ -154,11 +154,10 @@ const ClassCreate: React.FunctionComponent = () => {
 				classState={classState}
 			/>
 			<FormLayout>
-				<h1>Registrar Clase</h1>
 				<form onSubmit={handleSubmit}>
-					<Grid2 container spacing={2}>
-						<Grid2 xs={12} md={4}>
-							<Box sx={{ width: 250 }}>
+					<Grid2 container spacing={{ md: 10 }}>
+						<Grid2 xs={12} md={6}>
+							<Box>
 								<FormControl fullWidth>
 									<InputLabel id='alumno-select-label'>Alumno</InputLabel>
 									<Select
@@ -177,8 +176,8 @@ const ClassCreate: React.FunctionComponent = () => {
 								</FormControl>
 							</Box>
 						</Grid2>
-						<Grid2 xs={12} md={4}>
-							<Box sx={{ width: 250 }}>
+						<Grid2 xs={12} md={6}>
+							<Box>
 								<FormControl fullWidth>
 									<InputLabel id='leanguaje-select-label'>
 										Lenguaje de Programacion
@@ -201,8 +200,7 @@ const ClassCreate: React.FunctionComponent = () => {
 								</FormControl>
 							</Box>
 						</Grid2>
-						<Grid2 xs={12} md={4}>
-							<p>Duracion</p>
+						<Grid2 xs={12} md={6}>
 							<RangeSelectorInput
 								onChange={handleChangeRange}
 								rangeMax={5}

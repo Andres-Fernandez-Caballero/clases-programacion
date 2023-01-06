@@ -18,8 +18,12 @@ export const FormLayout: React.FunctionComponent<IFormLayoutProps> = ({
 				spacing={{ xs: 2, md: 3 }}
 				columns={{ xs: 4, sm: 8, md: 12 }}
 			>
-				<Grid sm={4} md={4} sx={{ display: { xs: 'none', md: 'block' } }}>
-					<Item>
+				<Grid
+					sm={4}
+					md={4}
+					sx={{ display: { xs: 'none', md: 'block', height: '85vh' } }}
+				>
+					<Item sx={{ height: '100%' }}>
 						<h2>Clases De Programacion</h2>
 						<img
 							src={books}
@@ -28,7 +32,7 @@ export const FormLayout: React.FunctionComponent<IFormLayoutProps> = ({
 						/>
 					</Item>
 				</Grid>
-				<Grid xs={12} sm={12} md={8} sx={{ height: '100%' }}>
+				<Grid xs={12} sm={12} md={8} sx={{ height: '100%', padding: 8 }}>
 					{children}
 				</Grid>
 			</Grid>

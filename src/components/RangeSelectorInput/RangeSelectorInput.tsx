@@ -1,10 +1,6 @@
 import { Box } from '@mui/material';
 import Slider from '@mui/material/Slider';
 
-function valuetext(value: number) {
-	return `${value}°C`;
-}
-
 export interface RangeSelectorInputProps {
 	onChange: (event: Event, newValue: number | number[]) => void;
 	rangeMax: number;
@@ -29,15 +25,15 @@ export const RangeSelectorInput: React.FC<RangeSelectorInputProps> = ({
 		marks.push(mark);
 	}
 	return (
-		<Box sx={{ width: 330 }}>
+		<Box sx={{ paddingX: 4 }}>
 			<label>Duracion de la clase</label>
 			<Slider
 				onChange={onChange}
 				aria-label='Always visible'
 				max={rangeMax}
-				getAriaValueText={valuetext}
 				step={step}
 				marks={marks}
+				defaultValue={value}
 				valueLabelDisplay='on'
 			/>
 		</Box>

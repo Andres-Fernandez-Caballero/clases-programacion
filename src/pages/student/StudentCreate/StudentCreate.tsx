@@ -7,6 +7,7 @@ import StudentService from '../../../services/FirebaseServices/entityServices/St
 import FormLayout from '../../../components/layers/FormLayout';
 import { IStudentFirebaseEntity } from '../../../interfaces/FirebaseEntitys';
 import FabSubmit from '../../../components/FabSubmit';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 const FormControlCustom = styled(FormControl)(({ theme }) => ({
 	margin: theme.spacing(1),
@@ -48,70 +49,81 @@ const StudentCreate: React.FunctionComponent = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<FormControlCustom>
-				<TextField
-					id='firstName'
-					label='Nombre'
-					variant='standard'
-					name='firstName'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FormControlCustom>
-				<TextField
-					id='lastName'
-					label='Apellido'
-					variant='standard'
-					name='lastName'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FormControlCustom>
-				<TextField
-					id='email'
-					label='Email'
-					variant='standard'
-					name='email'
-					type='email'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FormControlCustom>
-				<TextField
-					id='phone'
-					label='Telefono'
-					variant='standard'
-					name='phone'
-					type='number'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FormControlCustom>
-				<TextField
-					id='dni'
-					label='Dni'
-					variant='standard'
-					name='dni'
-					type='number'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FormControlCustom>
-				<TextField
-					id='birthDate'
-					label='Fecha Nacimiento'
-					name='birthDate'
-					type='date'
-					onChange={handleOnChange}
-				/>
-			</FormControlCustom>
-
-			<FabSubmit text='guardar' />
+			<Grid2 container spacing={{ md: 10 }}>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='firstName'
+							label='Nombre'
+							variant='standard'
+							name='firstName'
+							onChange={handleOnChange}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='lastName'
+							label='Apellido'
+							variant='standard'
+							name='lastName'
+							onChange={handleOnChange}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='email'
+							label='Email'
+							variant='standard'
+							name='email'
+							type='email'
+							onChange={handleOnChange}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='phone'
+							label='Telefono'
+							variant='standard'
+							name='phone'
+							type='number'
+							onChange={handleOnChange}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='dni'
+							label='Dni'
+							variant='standard'
+							name='dni'
+							type='number'
+							onChange={handleOnChange}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<Grid2 xs={12} sm={6}>
+					<FormControlCustom fullWidth>
+						<TextField
+							id='birthDate'
+							label='Fecha Nacimiento'
+							name='birthDate'
+							type='date'
+							onChange={handleOnChange}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</FormControlCustom>
+				</Grid2>
+				<FabSubmit text='guardar' />
+			</Grid2>
 		</form>
 	);
 };
