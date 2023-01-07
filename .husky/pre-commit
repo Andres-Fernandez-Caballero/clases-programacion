@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged && npm run test:once
+echo "Running pre-commit hook"
+pnpm test:once
+pnpm dlx lint-staged
