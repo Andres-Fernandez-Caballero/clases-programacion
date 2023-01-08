@@ -1,4 +1,4 @@
-import { ILink } from '../interfaces/ILink';
+import { ILink } from '@interfaces/ILink';
 
 export const navBarLinks: ILink[] = [
 	{ name: 'Home', url: '/' },

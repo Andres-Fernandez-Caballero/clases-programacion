@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import StudentService from '../../services/FirebaseServices/entityServices/StudentService';
+import StudentService from '@services/FirebaseServices/entityServices/StudentService';
 
 export const Home: React.FunctionComponent = () => {
 	useEffect(() => {

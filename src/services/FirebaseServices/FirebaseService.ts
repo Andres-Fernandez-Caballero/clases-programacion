@@ -1,4 +1,5 @@
-import { firebaseApp } from '../../firebase/instance';
+import { firebaseApp } from '@firebaseInstance/instance';
+import { IFirebaseEntity } from '@interfaces/FirebaseEntitys';
 import {
 	addDoc,
 	collection,
@@ -7,7 +8,6 @@ import {
 	getFirestore,
 	getDocs,
 } from 'firebase/firestore';
-import { IFirebaseEntity } from '../../interfaces/FirebaseEntitys';
 
 class FirebaseService<T extends IFirebaseEntity> {
 	private readonly folder: string;

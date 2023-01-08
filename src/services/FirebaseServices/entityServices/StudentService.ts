@@ -1,7 +1,7 @@
-import { IStudent } from '../../../interfaces/Domain';
-import { firebaseFolders } from '../../../constants/firebaseFolders';
-import { IStudentFirebaseEntity } from '../../../interfaces/FirebaseEntitys';
-import Service from '../../Service';
+import { IStudent } from '@interfaces/Domain';
+import { firebaseFolders } from '@constants/firebaseFolders';
+import { IStudentFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import Service from '@services/Service';
 
 class StudentService extends Service<IStudentFirebaseEntity> {
 	constructor() {

@@ -11,22 +11,22 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import moment from 'moment';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import FabSubmit from '../../../components/FabSubmit';
-import FormLayout from '../../../components/layers/FormLayout';
-import RangeSelectorInput from '../../../components/RangeSelectorInput';
-import { programingLanguages } from '../../../constants/programingLanguages';
-import { IProgramingLeanguaje, IStudent } from '../../../interfaces/Domain';
+import FabSubmit from '@components/FabSubmit';
+import FormLayout from '@components/layers/FormLayout';
+import RangeSelectorInput from '@components/RangeSelectorInput';
+import { programingLanguages } from '@constants/programingLanguages';
+import { IProgramingLeanguaje, IStudent } from '@interfaces/Domain';
 import {
 	IClassFirebaseEntity,
 	IStudentFirebaseEntity,
-} from '../../../interfaces/FirebaseEntitys';
-import ClassService from '../../../services/FirebaseServices/entityServices/ClassService';
-import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
-import { FormControlCustom } from '../../../styled/Forms.styled';
-import { CLASS_PRICE } from '../../../constants/price';
-import DialogTicket from '../../../components/DialogTicket';
-import TicketService from '../../../services/FirebaseServices/TicketService';
-import { message, messageError } from '../../../components/Toast';
+} from '@interfaces/FirebaseEntitys';
+import ClassService from '@services/FirebaseServices/entityServices/ClassService';
+import StudentService from '@services/FirebaseServices/entityServices/StudentService';
+import { FormControlCustom } from '@styled/Forms.styled';
+import { CLASS_PRICE } from '@constants/price';
+import DialogTicket from '@components/DialogTicket';
+import TicketService from '@/services/FirebaseServices/entityServices/TicketService';
+import { message, messageError } from '@components/Toast';
 
 const ClassCreate: React.FunctionComponent = () => {
 	const classDtoInitState: IClassFirebaseEntity = {

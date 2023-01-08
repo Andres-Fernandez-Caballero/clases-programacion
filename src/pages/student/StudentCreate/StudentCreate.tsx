@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { FormControl, styled, TextField } from '@mui/material';
 import { useState } from 'react';
-import { messageError } from '../../../components/Toast';
-import StudentService from '../../../services/FirebaseServices/entityServices/StudentService';
+import { messageError } from '@components/Toast';
+import StudentService from '@services/FirebaseServices/entityServices/StudentService';
 
-import FormLayout from '../../../components/layers/FormLayout';
-import { IStudentFirebaseEntity } from '../../../interfaces/FirebaseEntitys';
-import FabSubmit from '../../../components/FabSubmit';
+import FormLayout from '@components/layers/FormLayout';
+import { IStudentFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import FabSubmit from '@components/FabSubmit';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 const FormControlCustom = styled(FormControl)(({ theme }) => ({

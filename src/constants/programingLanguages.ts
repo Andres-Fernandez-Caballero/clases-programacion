@@ -1,4 +1,4 @@
-import { IProgramingLeanguaje } from '../interfaces/Domain';
+import { IProgramingLeanguaje } from '@interfaces/Domain';
 
 export const programingLanguages: IProgramingLeanguaje[] = [
 	{ name: 'C#' },

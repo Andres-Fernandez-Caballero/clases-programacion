@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import NavigableLayour from '../components/layers/NavigableLayout';
-import { navBarLinks, PATH_NAME } from '../constants/routes';
-import ClassCreate from '../pages/class/ClassCreate';
-import Home from '../pages/Home';
-import StudentCreate from '../pages/student/StudentCreate';
+import NavigableLayour from '@components/layers/NavigableLayout';
+import { navBarLinks, PATH_NAME } from '@constants/routes';
+
+import ClassCreate from '@pages/class/ClassCreate';
+import Home from '@pages/Home';
+import StudentCreate from '@pages/student/StudentCreate';
 
 const MainRouter = () => {
 	return (

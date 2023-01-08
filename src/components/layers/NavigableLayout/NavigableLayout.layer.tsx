@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { ILink } from '../../../interfaces/ILink';
-import Footer from '../../layouts/Footer';
-import Navbar from '../../layouts/Navbar';
+import { ILink } from '@interfaces/ILink';
+import Footer from '@components/layouts/Footer';
+import Navbar from '@components/layouts/Navbar';
 
 export interface NavigableLayoutProps {
 	navBarLinks: ILink[];
