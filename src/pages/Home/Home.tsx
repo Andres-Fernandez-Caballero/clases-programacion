@@ -1,17 +1,40 @@
 import { useEffect } from 'react';
-import StudentService from '@services/FirebaseServices/entityServices/StudentService';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectAuth,
+	IAuthState,
+	login,
+	logout,
+} from '@/store/slyces/auth.slyce';
 
 export const Home: React.FunctionComponent = () => {
+	const dispatch = useDispatch();
+	const auth = useSelector(selectAuth) as IAuthState;
+	console.table(auth);
 	useEffect(() => {
-		const service = new StudentService();
-		service
-			.getAll()
-			.then(res => {
-				console.log(res);
-			})
-			.catch(err => {
-				console.log(err);
-			});
+		dispatch(
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			login('andres.fernandezcaballero@davinci.edu.ar', 'DorianElGris1986')
+		);
 	}, []);
-	return <>Home</>;
+	return (
+		<>
+			<h1>Bienvenido {auth.user.email}</h1>
+			<section>
+				<h2>Información de la cuenta</h2>
+				<p>Nombre: {auth.user.displayName}</p>
+				<p>Email: {auth.user.email}</p>
+				<button
+					onClick={() => {
+						// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
+						// @ts-ignore
+						dispatch(logout());
+					}}
+				>
+					Logout
+				</button>
+			</section>
+		</>
+	);
 };

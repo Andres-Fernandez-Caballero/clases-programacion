@@ -32,7 +32,8 @@
 			"@styles/*": ["src/styles/*"],
 			"@tests/*": ["src/tests/*"],
 			"@config/*": ["src/config/*"],
-			"@styled/*": ["src/styled/*"]
+			"@styled/*": ["src/styled/*"],
+			"@slyces/*": ["src/store/slyces/*"]
 		}
 	},
 	"include": ["src", "vitest/setupTests.ts"],

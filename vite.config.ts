@@ -28,6 +28,7 @@ export default defineConfig({
 			'@tests': `${__dirname}/src/tests`,
 			'@config': `${__dirname}/src/config`,
 			'@styled': `${__dirname}/src/styled`,
+			'@slyces': `${__dirname}/src/store/slyces`,
 		},
 	},
 });
