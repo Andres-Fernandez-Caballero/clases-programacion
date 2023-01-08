@@ -9,7 +9,7 @@ import {
 	// queryByText,
 	render,
 } from '@testing-library/react';
-import { About } from '../../../pages/About/About';
+// import { About } from '../../../pages/About/About';
 import { Home } from '../../../pages/Home/Home';
 // import { navBarLinks } from '../../../constants/navLinks';
 // import { act } from 'react-dom/test-utils';
@@ -37,19 +37,13 @@ describe('Navbar', () => {
 			},
 		}));
 
-		vi.mock('../../../pages/About/About', () => ({
-			About: () => {
-				return <div>ABOUT</div>;
-			},
-		}));
-
 		const props = { ...defaultProps };
 		const { queryByText } = render(
 			<Router>
 				<Navbar {...props} />
 				<Routes>
 					<Route path='/' element={<Home />} />
-					<Route path='/about' element={<About />} />
+					<Route path='/about' element={<h1>About</h1>} />
 				</Routes>
 			</Router>
 		);
