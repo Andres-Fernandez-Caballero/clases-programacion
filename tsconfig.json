@@ -33,7 +33,8 @@
 			"@tests/*": ["src/tests/*"],
 			"@config/*": ["src/config/*"],
 			"@styled/*": ["src/styled/*"],
-			"@slyces/*": ["src/store/slyces/*"]
+			"@slyces/*": ["src/store/slyces/*"],
+			"@hooks/*": ["src/hooks/*"]
 		}
 	},
 	"include": ["src", "vitest/setupTests.ts"],

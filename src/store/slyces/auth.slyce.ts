@@ -43,9 +43,11 @@ export const login =
 	(email: string, password: string) =>
 	(
 		dispatch: (arg0: {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			payload: any;
 			type: 'auth/setAuth' | 'auth/loadingOff' | 'auth/loadingOn';
 		}) => void,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		getState: () => any
 	) => {
 		dispatch(loadingOn());
