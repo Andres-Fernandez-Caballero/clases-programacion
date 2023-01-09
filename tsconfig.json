@@ -15,7 +15,27 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"~/*": ["src/*"],
+			"@components/*": ["src/components/*"],
+			"@assets/*": ["src/assets/*"],
+			"@constants/*": ["src/constants/*"],
+			"@firebaseInstance/*": ["src/firebase/*"],
+			"@interfaces/*": ["src/interfaces/*"],
+			"@pages/*": ["src/pages/*"],
+			"@routes/*": ["src/routes/*"],
+			"@services/*": ["src/services/*"],
+			"@store/*": ["src/store/*"],
+			"@styles/*": ["src/styles/*"],
+			"@tests/*": ["src/tests/*"],
+			"@config/*": ["src/config/*"],
+			"@styled/*": ["src/styled/*"],
+			"@slyces/*": ["src/store/slyces/*"],
+			"@hooks/*": ["src/hooks/*"]
+		}
 	},
 	"include": ["src", "vitest/setupTests.ts"],
 	"references": [{ "path": "./tsconfig.node.json" }]

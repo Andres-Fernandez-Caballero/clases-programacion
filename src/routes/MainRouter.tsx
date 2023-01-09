@@ -1,14 +1,30 @@
-import { Route, Routes } from 'react-router-dom';
-import NavigableLayour from '../components/layers/NavigableLayout';
-import { navBarLinks, PATH_NAME } from '../constants/routes';
-import ClassCreate from '../pages/class/ClassCreate';
-import Home from '../pages/Home';
-import StudentCreate from '../pages/student/StudentCreate';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import NavigableLayour from '@components/layers/NavigableLayout';
+import { navBarLinks, PATH_NAME, URL } from '@constants/routes';
+
+import ClassCreate from '@pages/class/ClassCreate';
+import Home from '@pages/Home';
+import StudentCreate from '@pages/student/StudentCreate';
+import { useSelector } from 'react-redux';
+import { IAuthState, selectAuth } from '@/store/slyces/auth.slyce';
+import Login from '@/pages/Login';
 
 const MainRouter = () => {
+	const auth = useSelector(selectAuth) as IAuthState;
+	console.log(auth);
+
 	return (
 		<Routes>
-			<Route path='/' element={<NavigableLayour navBarLinks={navBarLinks} />}>
+			<Route
+				path={PATH_NAME.ROOT}
+				element={
+					auth.isAuthenticate ? (
+						<NavigableLayour navBarLinks={navBarLinks} />
+					) : (
+						<Navigate to={URL.LOGIN} />
+					)
+				}
+			>
 				<Route index element={<Home />} />
 				<Route path={PATH_NAME.ABOUT} element={<h1>About</h1>} />
 				<Route path={PATH_NAME.CLASS} element={<ClassCreate />}>
@@ -18,9 +34,24 @@ const MainRouter = () => {
 					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
 					<Route index element={<h1>Todos los estudiantes</h1>} />
 				</Route>
-
-				<Route path='*' element={<div>404 NOT FOUND</div>} />
 			</Route>
+
+			<Route
+				path={PATH_NAME.AUTH}
+				element={
+					!auth.isAuthenticate ? (
+						<div>
+							<Outlet />{' '}
+						</div>
+					) : (
+						<Navigate to={URL.ROOT} />
+					)
+				}
+			>
+				<Route path={PATH_NAME.LOGIN} element={<Login />} />
+			</Route>
+
+			<Route path='*' element={<div>404 NOT FOUND</div>} />
 		</Routes>
 	);
 };

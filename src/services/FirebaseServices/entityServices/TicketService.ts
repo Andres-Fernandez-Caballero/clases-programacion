@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { firebaseFolders } from '../../constants/firebaseFolders';
-import { ITicket } from '../../interfaces/Domain';
-import { ITicketFirebaseEntity } from '../../interfaces/FirebaseEntitys';
-import Service from '../Service';
+import { firebaseFolders } from '@constants/firebaseFolders';
+import { ITicket } from '@interfaces/Domain';
+import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import Service from '@services/Service';
 
 class TicketService extends Service<ITicketFirebaseEntity> {
 	constructor() {

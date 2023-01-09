@@ -1,5 +1,5 @@
-import { IFirebaseEntity } from '../interfaces/FirebaseEntitys';
-import FirebaseService from './FirebaseServices/FirebaseService';
+import { IFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import FirebaseService from '@services/FirebaseServices/FirebaseService';
 
 abstract class Service<E extends IFirebaseEntity> {
 	private readonly entityService: FirebaseService<E>;
