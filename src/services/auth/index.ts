@@ -14,7 +14,6 @@ export const signIn = async (email: string, password: string) => {
 		email,
 		password
 	);
-	console.log(userCredeentials.user);
 
 	const user: IUserCredential = {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment

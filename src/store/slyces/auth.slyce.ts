@@ -2,22 +2,18 @@
 import { Iuser } from '@/interfaces/auth';
 import { signIn, signOut } from '@/services/auth';
 import { createSlice } from '@reduxjs/toolkit';
+import { IAsyncState, IStateWhitError } from '../interfaces/state';
 
-export interface IAuthState {
-	user: Iuser;
+export interface IAuthState extends IAsyncState, IStateWhitError {
+	user: Iuser | null;
 	isAuthenticate: boolean;
 }
 
 const emptyState: IAuthState = {
-	user: {
-		email: '',
-		uid: '0',
-		displayName: '',
-		phoneNumber: '',
-		photoURL: '',
-		accessToken: '',
-	},
+	user: null,
 	isAuthenticate: false,
+	loading: false,
+	error: null,
 };
 
 const authSlice = createSlice({
@@ -29,24 +25,44 @@ const authSlice = createSlice({
 			state.isAuthenticate = true;
 		},
 		clearAuth: state => {
-			state.user = emptyState.user;
+			state.user = null;
 			state.isAuthenticate = false;
+		},
+		loadingOff(state) {
+			state.loading = false;
+		},
+		loadingOn(state) {
+			state.loading = true;
 		},
 	},
 });
 
-export const { setAuth, clearAuth } = authSlice.actions;
+const { setAuth, clearAuth, loadingOff, loadingOn } = authSlice.actions;
 
-// @ts-expect-error
-export const login = (email: string, password: string) => dispatch => {
-	signIn(email, password)
-		.then(userCredential => {
-			dispatch(setAuth(userCredential));
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
-};
+export const login =
+	(email: string, password: string) =>
+	(
+		dispatch: (arg0: {
+			payload: any;
+			type: 'auth/setAuth' | 'auth/loadingOff' | 'auth/loadingOn';
+		}) => void,
+		getState: () => any
+	) => {
+		dispatch(loadingOn());
+		console.log('loadingOn', getState().auth.loading);
+
+		signIn(email, password)
+			.then(userCredential => {
+				dispatch(setAuth(userCredential));
+				dispatch(loadingOff());
+			})
+			.catch(error => {
+				throw new Error(error);
+			})
+			.finally(() => {
+				dispatch(loadingOff());
+			});
+	};
 
 export const logout =
 	() =>

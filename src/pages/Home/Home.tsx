@@ -10,7 +10,6 @@ import {
 export const Home: React.FunctionComponent = () => {
 	const dispatch = useDispatch();
 	const auth = useSelector(selectAuth) as IAuthState;
-	console.table(auth);
 	useEffect(() => {
 		dispatch(
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,21 +19,26 @@ export const Home: React.FunctionComponent = () => {
 	}, []);
 	return (
 		<>
-			<h1>Bienvenido {auth.user.email}</h1>
-			<section>
-				<h2>Información de la cuenta</h2>
-				<p>Nombre: {auth.user.displayName}</p>
-				<p>Email: {auth.user.email}</p>
-				<button
-					onClick={() => {
-						// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						dispatch(logout());
-					}}
-				>
-					Logout
-				</button>
-			</section>
+			{auth.loading && <h1>Loading...</h1>}
+			{auth.user !== null && (
+				<main>
+					<h1>Bienvenido {auth.user.email}</h1>
+					<section>
+						<h2>Información de la cuenta</h2>
+						<p>Nombre: {auth.user.displayName}</p>
+						<p>Email: {auth.user.email}</p>
+						<button
+							onClick={() => {
+								// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
+								// @ts-ignore
+								dispatch(logout());
+							}}
+						>
+							Logout
+						</button>
+					</section>
+				</main>
+			)}
 		</>
 	);
 };
