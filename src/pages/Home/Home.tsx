@@ -3,20 +3,42 @@ import { logout } from '@/store/slyces/auth.slyce';
 import { useEffect, useState } from 'react';
 import { ITicket } from '@/interfaces/Domain';
 import TicketService from '@/services/FirebaseServices/entityServices/TicketService';
-import { ITicketFirebaseEntity } from '@/interfaces/FirebaseEntitys';
 import styles from './Home.module.css';
-import moment from 'moment';
+import Table from '@components/Table';
+import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 
 export const Home: React.FunctionComponent = () => {
 	const dispatch = useDispatch();
+	const ticketService = new TicketService();
+	function handlePaidTicket(ticket: ITicketFirebaseEntity): void {
+		if (ticket.id === undefined) return;
+		if (ticket.isPaid) {
+			ticketService
+				.cancelPaidTicket(ticket.id)
+				.then(() => {
+					console.log('Pago cancelado');
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		} else {
+			ticketService
+				.paidTicket(ticket.id)
+				.then(() => {
+					console.log('Pago realizado');
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
+	}
 
-	const [tikets, setTikets] = useState([] as ITicket[]);
+	const [tickets, setTickets] = useState([] as ITicket[]);
 	useEffect(() => {
-		const ticketService = new TicketService();
 		ticketService
 			.getAll()
 			.then(ticketsDb => {
-				setTikets(ticketsDb);
+				setTickets(ticketsDb);
 			})
 			.catch(err => {
 				console.log(err);
@@ -25,46 +47,10 @@ export const Home: React.FunctionComponent = () => {
 	return (
 		<main className={styles.container}>
 			<h1>Panel de control</h1>
+
 			<section>
 				<h2>clases Facturadas</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Fecha</th>
-							<th>Alumno</th>
-							<th>DNI</th>
-							<th>C/horas</th>
-							<th>Lenguaje</th>
-							<th>Monto total</th>
-							<th>Estado del pago</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tikets.map((ticket: ITicketFirebaseEntity) => (
-							<tr key={ticket.id}>
-								<td>{moment(ticket.class.dateTime).format('YYYY-MM-d')}</td>
-								<td>
-									{ticket.class.student.firstName}{' '}
-									{ticket.class.student.lastName}
-								</td>
-								<td>{ticket.class.student.dni}</td>
-								<td>{ticket.class.duration}</td>
-								<td>{ticket.class.programingLeanguage.name}</td>
-								<td>{ticket.amount}</td>
-								<td>
-									<span
-										style={{
-											color: ticket.isPaid ? 'green' : 'crimson',
-											fontWeight: 'bolder',
-										}}
-									>
-										{ticket.isPaid ? 'PAGO' : 'PENDIENTE'}
-									</span>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<Table tikests={tickets} handlePaidTicket={handlePaidTicket} />
 			</section>
 			<section>
 				<button

@@ -7,6 +7,8 @@ import {
 	Firestore,
 	getFirestore,
 	getDocs,
+	updateDoc,
+	doc,
 } from 'firebase/firestore';
 
 class FirebaseService<T extends IFirebaseEntity> {
@@ -27,6 +29,20 @@ class FirebaseService<T extends IFirebaseEntity> {
 		);
 		console.log('Document written with ID: ', docRef.id);
 		return { ...newData, id: docRef.id };
+	}
+
+	public async update(id: string, newData: T): Promise<void> {
+		const regist = doc(this.db, this.folder, id);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
+		await updateDoc(regist, {
+			...newData,
+		});
+	}
+
+	public async getById(id: string): Promise<T> {
+		const allDocks = await this.getAll();
+		return allDocks.find(dock => dock.id === id) as T;
 	}
 
 	public async getAll(): Promise<T[]> {
