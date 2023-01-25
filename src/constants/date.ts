@@ -1,0 +1,1 @@
+export const DATE_FORMAT_DIA_MES_ANIO = 'DD/MM/YYYY';

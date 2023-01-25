@@ -6,10 +6,13 @@ import TicketService from '@/services/FirebaseServices/entityServices/TicketServ
 import styles from './Home.module.css';
 import Table from '@components/Table';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import EstadisticaHome from '@components/EstadisticaHome';
+import moment from 'moment';
 
 export const Home: React.FunctionComponent = () => {
 	const dispatch = useDispatch();
 	const ticketService = new TicketService();
+
 	function handlePaidTicket(ticket: ITicketFirebaseEntity): void {
 		if (ticket.id === undefined) return;
 		if (ticket.isPaid) {
@@ -38,6 +41,9 @@ export const Home: React.FunctionComponent = () => {
 		ticketService
 			.getAll()
 			.then(ticketsDb => {
+				ticketsDb = ticketsDb.filter(ticket =>
+					moment(ticket.class.dateTime).isSameOrAfter(moment(), 'month')
+				);
 				setTickets(ticketsDb);
 			})
 			.catch(err => {
@@ -52,6 +58,7 @@ export const Home: React.FunctionComponent = () => {
 				<h2>clases Facturadas</h2>
 				<Table tikests={tickets} handlePaidTicket={handlePaidTicket} />
 			</section>
+			<EstadisticaHome tikests={tickets} />
 			<section>
 				<button
 					onClick={() => {

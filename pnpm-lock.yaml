@@ -38,6 +38,7 @@ specifiers:
   react-redux: ^8.0.5
   react-router-dom: '6'
   react-toastify: ^9.1.1
+  redux: ^4.2.0
   sass: ^1.55.0
   styled-components: ^5.3.6
   typescript: '*'
@@ -61,9 +62,10 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-is: 18.2.0
-  react-redux: 8.0.5_5uumaiclxbdbzaqafclbf6maf4
+  react-redux: 8.0.5_yfr4m6wk75wdra335rld4tkrbu
   react-router-dom: 6.4.3_biqbaboplfbrettd7655fr4n2y
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
+  redux: 4.2.0
   styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
 
 devDependencies:
@@ -1491,7 +1493,7 @@ packages:
     dependencies:
       immer: 9.0.17
       react: 18.2.0
-      react-redux: 8.0.5_5uumaiclxbdbzaqafclbf6maf4
+      react-redux: 8.0.5_yfr4m6wk75wdra335rld4tkrbu
       redux: 4.2.0
       redux-thunk: 2.4.2_redux@4.2.0
       reselect: 4.1.7
@@ -4117,7 +4119,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-redux/8.0.5_5uumaiclxbdbzaqafclbf6maf4:
+  /react-redux/8.0.5_yfr4m6wk75wdra335rld4tkrbu:
     resolution: {integrity: sha512-Q2f6fCKxPFpkXt1qNRZdEDLlScsDWyrgSj0mliK59qU6W5gvBiKkdMEG2lJzhd1rCctf0hb6EtePPLZ2e0m1uw==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -4147,6 +4149,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
+      redux: 4.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
