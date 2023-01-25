@@ -21,6 +21,26 @@ class TicketService extends Service<ITicketFirebaseEntity> {
 	async getAll(): Promise<ITicketFirebaseEntity[]> {
 		return await this.getEntityService().getAll();
 	}
+
+	async paidTicket(id: string): Promise<void> {
+		const regist = await this.getEntityService().getById(id);
+		await this.getEntityService().update(id, {
+			...regist,
+			isPaid: true,
+			paymentDate: moment().format('DD/MM/YYYY'),
+		});
+		console.warn('regist exito');
+	}
+
+	async cancelPaidTicket(id: string): Promise<void> {
+		const regist = await this.getEntityService().getById(id);
+		await this.getEntityService().update(id, {
+			...regist,
+			isPaid: false,
+			paymentDate: '',
+		});
+		console.warn('regist exito cancelado');
+	}
 }
 
 export default TicketService;
