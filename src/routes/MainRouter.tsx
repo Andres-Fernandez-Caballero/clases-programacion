@@ -6,11 +6,12 @@ import ClassCreate from '@pages/class/ClassCreate';
 import Home from '@pages/Home';
 import StudentCreate from '@pages/student/StudentCreate';
 import { useSelector } from 'react-redux';
-import { IAuthState, selectAuth } from '@/store/slyces/auth.slyce';
+import { selectAuth } from '@/store/slyces/auth.slyce';
 import Login from '@/pages/Login';
+import Tikets from '@/pages/Tikets';
 
 const MainRouter = () => {
-	const auth = useSelector(selectAuth) as IAuthState;
+	const auth = useSelector(selectAuth);
 	console.log(auth);
 
 	return (
@@ -30,6 +31,8 @@ const MainRouter = () => {
 				<Route path={PATH_NAME.CLASS} element={<ClassCreate />}>
 					<Route path={PATH_NAME.CREATE} element={<ClassCreate />} />
 				</Route>
+
+				<Route path={PATH_NAME.TIKET} element={<Tikets />} />
 				<Route path={PATH_NAME.STUDENT}>
 					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
 					<Route index element={<h1>Todos los estudiantes</h1>} />

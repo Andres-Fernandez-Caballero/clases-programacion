@@ -3,22 +3,40 @@ import { Iuser } from '@/interfaces/auth';
 import { signIn, signOut } from '@/services/auth';
 import { createSlice } from '@reduxjs/toolkit';
 import { IAsyncState, IStateWhitError } from '../interfaces/state';
+import Cookie from 'universal-cookie';
+import type { RootState } from '@/store/index';
 
 export interface IAuthState extends IAsyncState, IStateWhitError {
 	user: Iuser | null;
 	isAuthenticate: boolean;
 }
 
-const emptyState: IAuthState = {
-	user: null,
-	isAuthenticate: false,
-	loading: false,
-	error: null,
+const COOKIE_STORE_AUTH = 'dharz';
+const setCookie = (data: unknown, store: string) => {
+	const cookies = new Cookie();
+	cookies.set(store, data, { path: '/' });
+};
+
+const getCookie = (store: string): Iuser | undefined => {
+	const cookies = new Cookie();
+	return cookies.get(store);
+};
+
+const clearCookie = (store: string) => {
+	const cookies = new Cookie();
+	cookies.remove(store, { path: '/' });
+};
+
+const initstate = (): IAuthState => {
+	const credentials = getCookie(COOKIE_STORE_AUTH);
+	return credentials !== undefined
+		? { user: credentials, isAuthenticate: true, loading: false, error: null }
+		: { user: null, isAuthenticate: false, loading: false, error: null };
 };
 
 const authSlice = createSlice({
 	name: 'auth',
-	initialState: emptyState,
+	initialState: initstate(),
 	reducers: {
 		setAuth: (state, action) => {
 			state.user = action.payload;
@@ -56,6 +74,7 @@ export const login =
 		signIn(email, password)
 			.then(userCredential => {
 				dispatch(setAuth(userCredential));
+				setCookie(userCredential, COOKIE_STORE_AUTH);
 				dispatch(loadingOff());
 			})
 			.catch(error => {
@@ -74,11 +93,12 @@ export const logout =
 		signOut()
 			.then(() => {
 				dispatch(clearAuth());
+				clearCookie(COOKIE_STORE_AUTH);
 			})
 			.catch(error => {
 				throw new Error(error);
 			});
 	};
-// @ts-expect-error
-export const selectAuth = state => state.auth;
+
+export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;

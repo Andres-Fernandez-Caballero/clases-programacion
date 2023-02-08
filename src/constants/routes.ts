@@ -13,6 +13,7 @@ export const PATH_NAME = {
 	CREATE_CLASS: 'Crear Clase',
 	AUTH: 'auth',
 	LOGIN: 'login',
+	TIKET: 'recibos',
 };
 
 export const URL = {
@@ -23,6 +24,8 @@ export const URL = {
 	STUDENT_CREATE: root + PATH_NAME.STUDENT + '/' + PATH_NAME.CREATE,
 	CLASS: root + PATH_NAME.CLASS,
 	CLASS_CREATE: root + PATH_NAME.CLASS + '/' + PATH_NAME.CREATE,
+	TIKECT_CREATE: root + PATH_NAME.TIKET + '/' + PATH_NAME.CREATE,
+	TICKET: root + '/' + PATH_NAME.TIKET,
 	LOGIN: root + PATH_NAME.AUTH + '/' + PATH_NAME.LOGIN,
 };
 
