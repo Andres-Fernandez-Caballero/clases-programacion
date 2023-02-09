@@ -32,7 +32,7 @@ const MainRouter = () => {
 					<Route path={PATH_NAME.CREATE} element={<ClassCreate />} />
 				</Route>
 
-				<Route path={PATH_NAME.TIKET} element={<Tikets />} />
+				<Route path={PATH_NAME.TICKET} element={<Tikets />} />
 				<Route path={PATH_NAME.STUDENT}>
 					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
 					<Route index element={<h1>Todos los estudiantes</h1>} />

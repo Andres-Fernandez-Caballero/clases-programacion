@@ -15,6 +15,7 @@ const View = (props: NavigationLinkProps) => (
 export const Instance = ({ navLinks }: NavigationProps) => {
 	const navigate = useNavigate();
 	const handleOpenPage = (url: string) => {
+		console.warn(url);
 		navigate(url);
 	};
 
