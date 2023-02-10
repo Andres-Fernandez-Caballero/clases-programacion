@@ -1,57 +1,41 @@
-import { useDispatch } from 'react-redux';
 import { logout } from '@/store/slyces/auth.slyce';
 import { useEffect, useState } from 'react';
 import { ITicket } from '@/interfaces/Domain';
-import TicketService from '@/services/FirebaseServices/entityServices/TicketService';
 import styles from './Home.module.css';
 import Table from '@components/Table';
+import EstadisticaHome from '@components/EstadisticaHome';
+import moment from 'moment';
+import { useAppSelector } from '@store/hooks/hook';
+import { selectTickets } from '@slyces/ticket.slice';
+import { MONTHS } from '@constants/date';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 
 export const Home: React.FunctionComponent = () => {
-	const dispatch = useDispatch();
-	const ticketService = new TicketService();
-	function handlePaidTicket(ticket: ITicketFirebaseEntity): void {
-		if (ticket.id === undefined) return;
-		if (ticket.isPaid) {
-			ticketService
-				.cancelPaidTicket(ticket.id)
-				.then(() => {
-					console.log('Pago cancelado');
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		} else {
-			ticketService
-				.paidTicket(ticket.id)
-				.then(() => {
-					console.log('Pago realizado');
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		}
-	}
-
-	const [tickets, setTickets] = useState([] as ITicket[]);
+	const { tickets } = useAppSelector(selectTickets);
+	const [ticketsFromCurrentMonth, setTicketsFromCurrentMonth] = useState(
+		[] as ITicket[]
+	);
 	useEffect(() => {
-		ticketService
-			.getAll()
-			.then(ticketsDb => {
-				setTickets(ticketsDb);
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	}, []);
+		setTicketsFromCurrentMonth(
+			tickets.filter(
+				(ticket: ITicketFirebaseEntity) =>
+					moment(ticket.class.dateTime).month() === moment().month()
+			)
+		);
+	}, [tickets]);
+
 	return (
 		<main className={styles.container}>
 			<h1>Panel de control</h1>
 
 			<section>
-				<h2>clases Facturadas</h2>
-				<Table tikests={tickets} handlePaidTicket={handlePaidTicket} />
+				<h2>
+					clases Facturadas en{' '}
+					<span style={{ color: 'cadetblue' }}>{MONTHS[moment().month()]}</span>
+				</h2>
+				<Table tickets={ticketsFromCurrentMonth} />
 			</section>
+			<EstadisticaHome tikests={ticketsFromCurrentMonth} />
 			<section>
 				<button
 					onClick={() => {

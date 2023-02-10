@@ -1,61 +1,35 @@
 import { ILink } from '@interfaces/ILink';
-import React, { MouseEvent } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useNavigate } from 'react-router-dom';
+import { AppConfig } from '@config/index';
+import owl from '@assets/owl.svg';
+import { useAppSelector } from '@/store/hooks/hook';
+import { selectAuth } from '@/store/slyces/auth.slyce';
+import { useToggle } from './hooks/toggleButtonNav';
+import NavigationLinks from './NavigationLinks/';
 
 export interface NavbarProps {
 	navLinks: ILink[];
 }
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+export const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
+	const auth = useAppSelector(selectAuth);
+	const anchorUser = useToggle();
 
-const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
-	const navigate = useNavigate();
-	const pages = navLinks;
-
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
-
-	const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget);
-	};
-	const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
-	};
-
-	const handleOpenPage = (url: string) => {
-		navigate(url);
-	};
+	const userSettingsLinks = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 	return (
 		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 					<Typography
 						variant='h6'
 						noWrap
@@ -71,92 +45,34 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 							textDecoration: 'none',
 						}}
 					>
-						Navbar
+						<img src={owl} height='50' width='50' />
+						{AppConfig.appName}
 					</Typography>
 
-					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-						<IconButton
-							size='large'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleOpenNavMenu}
-							color='inherit'
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id='menu-appbar'
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: 'bottom',
-								horizontal: 'left',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'left',
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: 'block', md: 'none' },
-							}}
-						>
-							{pages.map(page => (
-								<MenuItem
-									key={page.name}
-									onClick={() => {
-										handleOpenPage(page.url);
-									}}
-								>
-									<Typography textAlign='center'>{page.name}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
-					<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-					<Typography
-						variant='h5'
-						noWrap
-						component='a'
-						href=''
-						sx={{
-							mr: 2,
-							display: { xs: 'flex', md: 'none' },
-							flexGrow: 1,
-							fontFamily: 'monospace',
-							fontWeight: 700,
-							letterSpacing: '.3rem',
-							color: 'inherit',
-							textDecoration: 'none',
-						}}
-					>
-						LOGO
-					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						{pages.map(page => (
-							<Button
-								data-testid={page.name}
-								key={page.name}
-								onClick={() => handleOpenPage(page.url)}
-								sx={{ my: 2, color: 'white', display: 'block' }}
-							>
-								{page.name}
-							</Button>
-						))}
-					</Box>
+					<NavigationLinks navLinks={navLinks} />
 
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title='Open settings'>
-							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+							<IconButton
+								onClick={event => {
+									anchorUser.toggleOpen(event.target);
+								}}
+								sx={{ p: 0 }}
+							>
+								<Avatar
+									alt='Remy Sharp'
+									src={
+										auth.user?.photoURL != null
+											? auth.user?.photoURL
+											: 'https://www.ringtina.com.ar/Descargar/Fondos%20de%20Pantalla/Animales/ImgAnimales%20051.jpg'
+									}
+								/>
 							</IconButton>
 						</Tooltip>
 						<Menu
 							sx={{ mt: '45px' }}
 							id='menu-appbar'
-							anchorEl={anchorElUser}
+							anchorEl={anchorUser.state}
 							anchorOrigin={{
 								vertical: 'top',
 								horizontal: 'right',
@@ -166,11 +82,11 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 								vertical: 'top',
 								horizontal: 'right',
 							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
+							open={Boolean(anchorUser.state)}
+							onClose={anchorUser.toggleClose}
 						>
-							{settings.map(setting => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
+							{userSettingsLinks.map(setting => (
+								<MenuItem key={setting} onClick={anchorUser.toggleClose}>
 									<Typography textAlign='center'>{setting}</Typography>
 								</MenuItem>
 							))}
@@ -181,4 +97,3 @@ const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 		</AppBar>
 	);
 };
-export default NavBar;

@@ -6,4 +6,5 @@ export const navBarLinks: ILink[] = [
 	{ name: 'Crear Alumno', url: '/student/create' },
 	{ name: 'Crear Lenguaje', url: '/language/create' },
 	{ name: 'Crear Clase', url: '/class/create' },
+	{ name: 'Crear Curso', url: '/course/create' },
 ];
