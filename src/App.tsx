@@ -3,11 +3,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { CssBaseline } from '@mui/material';
 import { useEffect } from 'react';
-import { useAppDispatch } from './store/hooks/hook';
-import { getTickets } from './store/slyces/ticket.slice';
+import { useAppDispatch } from '@store/hooks/hook';
+import { getTickets } from '@slyces/ticket.slice';
 
 function App(): JSX.Element {
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		dispatch(getTickets())
 			.then(() => console.log('Tickets loaded'))

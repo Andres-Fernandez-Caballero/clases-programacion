@@ -1,3 +1,3 @@
-import { Tikets } from './Tikets';
+import { Tickets } from './Tickets';
 
-export default Tikets;
+export default Tickets;
