@@ -2,11 +2,11 @@ import MainRouter from '@routes/MainRouter';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { CssBaseline } from '@mui/material';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch } from '@store/hooks/hook';
 import { getTickets } from '@slyces/ticket.slice';
 
-function App(): JSX.Element {
+function App(): React.ReactElement {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

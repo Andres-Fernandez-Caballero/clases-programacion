@@ -1,16 +1,17 @@
 import { logout } from '@/store/slyces/auth.slyce';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ITicket } from '@/interfaces/Domain';
 import styles from './Home.module.css';
 import Table from '@components/Table';
 import EstadisticaHome from '@components/EstadisticaHome';
 import moment from 'moment';
-import { useAppSelector } from '@store/hooks/hook';
+import { useAppDispatch, useAppSelector } from '@store/hooks/hook';
 import { selectTickets } from '@slyces/ticket.slice';
 import { MONTHS } from '@constants/date';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 
 export const Home: React.FunctionComponent = () => {
+	const dispatch = useAppDispatch();
 	const { tickets } = useAppSelector(selectTickets);
 	const [ticketsFromCurrentMonth, setTicketsFromCurrentMonth] = useState(
 		[] as ITicket[]
@@ -39,9 +40,16 @@ export const Home: React.FunctionComponent = () => {
 			<section>
 				<button
 					onClick={() => {
-						// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						dispatch(logout());
+						dispatch(logout())
+							.then(() => {
+								console.log('logout');
+							})
+							.catch((error: any) => {
+								console.log(error);
+							})
+							.finally(() => {
+								console.log('finally logout');
+							});
 					}}
 				>
 					Logout

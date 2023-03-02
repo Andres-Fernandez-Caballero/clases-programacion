@@ -41,17 +41,9 @@ const MainRouter = () => {
 
 			<Route
 				path={PATH_NAME.AUTH}
-				element={
-					!auth.isAuthenticate ? (
-						<div>
-							<Outlet />{' '}
-						</div>
-					) : (
-						<Navigate to={URL.ROOT} />
-					)
-				}
+				element={auth.isAuthenticate ? <Navigate to={URL.HOME} /> : <Outlet />}
 			>
-				<Route path={PATH_NAME.LOGIN} element={<Login />} />
+				<Route path={PATH_NAME.LOGIN} index element={<Login />} />
 			</Route>
 
 			<Route path='*' element={<div>404 NOT FOUND</div>} />
