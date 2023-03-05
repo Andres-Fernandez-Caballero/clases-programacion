@@ -69,27 +69,35 @@ export const login =
 		dispatch(loadingOn());
 		try {
 			const userCredentials = await signIn(dtoLogin);
+			// @ts-expect-error
 			setSession(userCredentials)(dispatch);
 		} catch (error) {
-			handleError(error)(dispatch);
+			handleError()(dispatch);
 		} finally {
 			dispatch(loadingOff());
 		}
 	};
 
-export const logout = () => async (dispatch: any) => {
-	dispatch(loadingOn());
+export const logout =
+	() =>
+	async (
+		dispatch: (arg0: {
+			payload: undefined;
+			type: 'auth/clearAuth' | 'auth/loadingOff' | 'auth/loadingOn';
+		}) => void
+	) => {
+		dispatch(loadingOn());
 
-	await signOut();
-	removeCookie(COOKIE_AUTH);
-	dispatch(clearAuth());
+		await signOut();
+		removeCookie(COOKIE_AUTH);
+		dispatch(clearAuth());
 
-	dispatch(loadingOff());
-};
+		dispatch(loadingOff());
+	};
 
 const setSession =
 	(userCredentials: unknown) =>
-	(dispatch: (arg0: { payload: any; type: 'auth/setAuth' }) => void) => {
+	(dispatch: (arg0: { payload: unknown; type: 'auth/setAuth' }) => void) => {
 		setCookie(COOKIE_AUTH, userCredentials);
 		// @ts-expect-error
 		dispatch(setAuth(userCredentials));
@@ -97,7 +105,7 @@ const setSession =
 
 // eslint-disable-next-line n/handle-callback-err
 const handleError =
-	(error: any) =>
+	() =>
 	(dispatch: (arg0: { payload: string; type: 'auth/setError' }) => void) => {
 		dispatch(setError('credenciales incorrectas'));
 		throw new Error('Credenciales incorrectas -_-');

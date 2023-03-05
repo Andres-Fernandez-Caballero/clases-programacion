@@ -1,11 +1,7 @@
 import { IloginDto } from '@interfaces/auth';
 import React, { useState } from 'react';
+import { IUseDtoLogin } from '@pages/Login/interfaces';
 
-export interface IUseDtoLogin {
-	dtoLogin: IloginDto;
-	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	clearDtoLogin: () => void;
-}
 export const useDtoLogin = (): IUseDtoLogin => {
 	const initState: IloginDto = {
 		email: '',
