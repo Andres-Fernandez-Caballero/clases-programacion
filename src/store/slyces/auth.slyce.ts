@@ -1,103 +1,114 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Iuser } from '@/interfaces/auth';
+import { IloginDto, Iuser } from '@/interfaces/auth';
 import { signIn, signOut } from '@/services/auth';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAsyncState, IStateWhitError } from '../interfaces/state';
-import Cookie from 'universal-cookie';
-import type { RootState } from '@/store/index';
+import type { RootState } from '@/store';
+import { COOKIE_AUTH } from '@constants/cookies';
+import { setCookie, getCookie, removeCookie } from '@utils/cookies';
 
 export interface IAuthState extends IAsyncState, IStateWhitError {
 	user: Iuser | null;
 	isAuthenticate: boolean;
 }
 
-const COOKIE_STORE_AUTH = 'dharz';
-const setCookie = (data: unknown, store: string) => {
-	const cookies = new Cookie();
-	cookies.set(store, data, { path: '/' });
+const defaultState: IAuthState = {
+	user: null,
+	isAuthenticate: false,
+	loading: false,
+	error: null,
 };
-
-const getCookie = (store: string): Iuser | undefined => {
-	const cookies = new Cookie();
-	return cookies.get(store);
-};
-
-const clearCookie = (store: string) => {
-	const cookies = new Cookie();
-	cookies.remove(store, { path: '/' });
-};
-
-const initstate = (): IAuthState => {
-	const credentials = getCookie(COOKIE_STORE_AUTH);
+const initState = (): IAuthState => {
+	const credentials = getCookie(COOKIE_AUTH);
 	return credentials !== undefined
-		? { user: credentials, isAuthenticate: true, loading: false, error: null }
-		: { user: null, isAuthenticate: false, loading: false, error: null };
+		? { ...defaultState, user: credentials, isAuthenticate: true }
+		: defaultState;
 };
 
 const authSlice = createSlice({
 	name: 'auth',
-	initialState: initstate(),
+	initialState: initState(),
 	reducers: {
-		setAuth: (state, action) => {
+		setAuth: (state: IAuthState, action: PayloadAction<Iuser>) => {
 			state.user = action.payload;
 			state.isAuthenticate = true;
 		},
-		clearAuth: state => {
-			state.user = null;
-			state.isAuthenticate = false;
+		clearAuth: (state: IAuthState) => {
+			state.user = defaultState.user;
+			state.isAuthenticate = defaultState.isAuthenticate;
+			state.error = defaultState.error;
+			state.loading = defaultState.loading;
 		},
-		loadingOff(state) {
+		loadingOff(state: IAuthState) {
 			state.loading = false;
 		},
-		loadingOn(state) {
+		loadingOn(state: IAuthState) {
 			state.loading = true;
+		},
+		setError: (state: IAuthState, action: PayloadAction<string>) => {
+			state.error = action.payload;
 		},
 	},
 });
 
-const { setAuth, clearAuth, loadingOff, loadingOn } = authSlice.actions;
+const { setAuth, clearAuth, loadingOff, loadingOn, setError } =
+	authSlice.actions;
 
 export const login =
-	(email: string, password: string) =>
-	(
+	(dtoLogin: IloginDto) =>
+	async (
 		dispatch: (arg0: {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			payload: any;
-			type: 'auth/setAuth' | 'auth/loadingOff' | 'auth/loadingOn';
-		}) => void,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		getState: () => any
+			payload: Iuser | string | undefined;
+			type:
+				| 'auth/setAuth'
+				| 'auth/loadingOff'
+				| 'auth/loadingOn'
+				| 'auth/setError';
+		}) => void
 	) => {
 		dispatch(loadingOn());
-		console.log('loadingOn', getState().auth.loading);
-
-		signIn(email, password)
-			.then(userCredential => {
-				dispatch(setAuth(userCredential));
-				setCookie(userCredential, COOKIE_STORE_AUTH);
-				dispatch(loadingOff());
-			})
-			.catch(error => {
-				throw new Error(error);
-			})
-			.finally(() => {
-				dispatch(loadingOff());
-			});
+		try {
+			const userCredentials = await signIn(dtoLogin);
+			// @ts-expect-error
+			setSession(userCredentials)(dispatch);
+		} catch (error) {
+			handleError()(dispatch);
+		} finally {
+			dispatch(loadingOff());
+		}
 	};
 
 export const logout =
 	() =>
-	(
-		dispatch: (arg0: { payload: undefined; type: 'auth/clearAuth' }) => void
+	async (
+		dispatch: (arg0: {
+			payload: undefined;
+			type: 'auth/clearAuth' | 'auth/loadingOff' | 'auth/loadingOn';
+		}) => void
 	) => {
-		signOut()
-			.then(() => {
-				dispatch(clearAuth());
-				clearCookie(COOKIE_STORE_AUTH);
-			})
-			.catch(error => {
-				throw new Error(error);
-			});
+		dispatch(loadingOn());
+
+		await signOut();
+		removeCookie(COOKIE_AUTH);
+		dispatch(clearAuth());
+
+		dispatch(loadingOff());
+	};
+
+const setSession =
+	(userCredentials: unknown) =>
+	(dispatch: (arg0: { payload: unknown; type: 'auth/setAuth' }) => void) => {
+		setCookie(COOKIE_AUTH, userCredentials);
+		// @ts-expect-error
+		dispatch(setAuth(userCredentials));
+	};
+
+// eslint-disable-next-line n/handle-callback-err
+const handleError =
+	() =>
+	(dispatch: (arg0: { payload: string; type: 'auth/setError' }) => void) => {
+		dispatch(setError('credenciales incorrectas'));
+		throw new Error('Credenciales incorrectas -_-');
 	};
 
 export const selectAuth = (state: RootState) => state.auth;

@@ -1,4 +1,5 @@
 import { firebaseApp } from '@/firebase/instance';
+import { IloginDto } from '@interfaces/auth';
 import { IUserCredential } from '@/interfaces/firebaseAuth';
 import {
 	getAuth,
@@ -8,7 +9,8 @@ import {
 
 const auth = getAuth(firebaseApp);
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (dtoLogin: IloginDto) => {
+	const { email, password } = dtoLogin;
 	const userCredeentials = await signInWithEmailAndPassword(
 		auth,
 		email,

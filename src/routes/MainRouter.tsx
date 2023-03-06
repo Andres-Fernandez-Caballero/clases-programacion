@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from '@/store/slyces/auth.slyce';
 import Login from '@/pages/Login';
 import Tikets from '@/pages/Tikets';
+import StudentList from '@pages/student/StudentList';
 
 const MainRouter = () => {
 	const auth = useSelector(selectAuth);
@@ -35,23 +36,15 @@ const MainRouter = () => {
 				<Route path={PATH_NAME.TICKET} element={<Tikets />} />
 				<Route path={PATH_NAME.STUDENT}>
 					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
-					<Route index element={<h1>Todos los estudiantes</h1>} />
+					<Route index element={<StudentList />} />
 				</Route>
 			</Route>
 
 			<Route
 				path={PATH_NAME.AUTH}
-				element={
-					!auth.isAuthenticate ? (
-						<div>
-							<Outlet />{' '}
-						</div>
-					) : (
-						<Navigate to={URL.ROOT} />
-					)
-				}
+				element={auth.isAuthenticate ? <Navigate to={URL.HOME} /> : <Outlet />}
 			>
-				<Route path={PATH_NAME.LOGIN} element={<Login />} />
+				<Route path={PATH_NAME.LOGIN} index element={<Login />} />
 			</Route>
 
 			<Route path='*' element={<div>404 NOT FOUND</div>} />

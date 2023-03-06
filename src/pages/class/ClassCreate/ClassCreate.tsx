@@ -73,6 +73,10 @@ const ClassCreate: React.FunctionComponent = () => {
 		setPrice(Number(event.target.value));
 	};
 
+	const handleOnPriceOff = (DiscountPercentage: number) => {
+		setPrice(price * (1 - DiscountPercentage / 100));
+	};
+
 	const handleOnChangeProgramingLeanguaje = (event: SelectChangeEvent) => {
 		setClassState({
 			...classState,
@@ -129,7 +133,7 @@ const ClassCreate: React.FunctionComponent = () => {
 				isPaid: false,
 			}),
 		])
-			.then(response => {
+			.then(() => {
 				message('Clase registrada con exito');
 			})
 			.catch(() => {
@@ -149,6 +153,7 @@ const ClassCreate: React.FunctionComponent = () => {
 				popUpVisible={popUpVisible}
 				handleClose={handleClose}
 				handleChangePrice={handleOnChangePrice}
+				handleOnPriceOff={handleOnPriceOff}
 				handleOnConfirm={handleOnConfirm}
 				price={price}
 				classState={classState}

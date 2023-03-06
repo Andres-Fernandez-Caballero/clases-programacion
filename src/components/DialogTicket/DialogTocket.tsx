@@ -36,6 +36,7 @@ export interface DialogTicketProps {
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => void;
 	handleOnConfirm: () => void;
+	handleOnPriceOff: (DiscountPercentage: number) => void;
 }
 
 export const DialogTicket = ({
@@ -45,6 +46,7 @@ export const DialogTicket = ({
 	handleClose,
 	handleChangePrice,
 	handleOnConfirm,
+	handleOnPriceOff,
 }: DialogTicketProps) => {
 	return (
 		<Dialog
@@ -96,7 +98,13 @@ export const DialogTicket = ({
 						/>
 					</Grid2>
 					<Grid2 xs={12} md={6}>
-						<Button variant='outlined' size='small'>
+						<Button
+							variant='outlined'
+							size='small'
+							onClick={() => {
+								handleOnPriceOff(10);
+							}}
+						>
 							<MoneyOffIcon /> -10%
 						</Button>
 					</Grid2>
