@@ -9,12 +9,13 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { AppConfig } from '@config/index';
+import { AppConfig } from '@/config';
 import owl from '@assets/owl.svg';
 import { useAppSelector } from '@/store/hooks/hook';
 import { selectAuth } from '@/store/slyces/auth.slyce';
 import { useToggle } from './hooks/toggleButtonNav';
 import NavigationLinks from './NavigationLinks/';
+import React from 'react';
 
 export interface NavbarProps {
 	navLinks: ILink[];
@@ -45,7 +46,7 @@ export const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 							textDecoration: 'none',
 						}}
 					>
-						<img src={owl} height='50' width='50' />
+						<img src={owl} height='50' width='50' alt='a owl image' />
 						{AppConfig.appName}
 					</Typography>
 

@@ -1,54 +1,21 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { FormControl, styled, TextField } from '@mui/material';
-import { useState } from 'react';
-import { messageError } from '@components/Toast';
-import StudentService from '@services/FirebaseServices/entityServices/StudentService';
-
-import FormLayout from '@components/layers/FormLayout';
-import { IStudentFirebaseEntity } from '@interfaces/FirebaseEntitys';
 import FabSubmit from '@components/FabSubmit';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { StudentCreateProps } from '@pages/student/StudentCreate/StudentCreate.interfaces';
+import React from 'react';
 
 const FormControlCustom = styled(FormControl)(({ theme }) => ({
 	margin: theme.spacing(1),
 	minWidth: 120,
 }));
 
-const StudentCreate: React.FunctionComponent = () => {
-	const studentDtoInitState: IStudentFirebaseEntity = {
-		firstName: '',
-		lastName: '',
-		dni: '',
-		email: '',
-		phone: '',
-		birthDate: '',
-	};
-
-	const [studentState, setStudentState] = useState(studentDtoInitState);
-
-	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setStudentState({
-			...studentState,
-			[event.target.name]: event.target.value,
-		});
-	};
-
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
-		const studentService = new StudentService();
-		studentService
-			.create(studentState)
-			.then((student: IStudentFirebaseEntity) => {
-				console.log(student);
-			})
-			.catch(error => {
-				messageError(error.message);
-			});
-	};
-
+export const StudentCreate: React.FC<StudentCreateProps> = ({
+	onChange,
+	onSubmit,
+}: StudentCreateProps): React.ReactElement => {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={onSubmit}>
 			<Grid2 container spacing={{ md: 10 }}>
 				<Grid2 xs={12} sm={6}>
 					<FormControlCustom fullWidth>
@@ -57,7 +24,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							label='Nombre'
 							variant='standard'
 							name='firstName'
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</FormControlCustom>
 				</Grid2>
@@ -68,7 +35,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							label='Apellido'
 							variant='standard'
 							name='lastName'
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</FormControlCustom>
 				</Grid2>
@@ -80,7 +47,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							variant='standard'
 							name='email'
 							type='email'
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</FormControlCustom>
 				</Grid2>
@@ -92,7 +59,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							variant='standard'
 							name='phone'
 							type='number'
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</FormControlCustom>
 				</Grid2>
@@ -104,7 +71,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							variant='standard'
 							name='dni'
 							type='number'
-							onChange={handleOnChange}
+							onChange={onChange}
 						/>
 					</FormControlCustom>
 				</Grid2>
@@ -115,7 +82,7 @@ const StudentCreate: React.FunctionComponent = () => {
 							label='Fecha Nacimiento'
 							name='birthDate'
 							type='date'
-							onChange={handleOnChange}
+							onChange={onChange}
 							InputLabelProps={{
 								shrink: true,
 							}}
@@ -127,9 +94,3 @@ const StudentCreate: React.FunctionComponent = () => {
 		</form>
 	);
 };
-
-export const componentStudentCreate = () => (
-	<FormLayout>
-		<StudentCreate />
-	</FormLayout>
-);
