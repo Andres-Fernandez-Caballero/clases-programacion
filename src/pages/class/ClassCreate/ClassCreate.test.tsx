@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
-import ClassCreate from './ClassCreate';
+import { ClassCreate } from './ClassCreate';
 
 describe('ClassCreate', () => {
 	afterEach(cleanup);
