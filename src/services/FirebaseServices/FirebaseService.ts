@@ -18,7 +18,6 @@ class FirebaseService<T extends IFirebaseEntity> {
 	constructor(folder: string) {
 		this.folder = folder;
 		this.db = getFirestore(firebaseApp);
-		console.log('this.db', this.db);
 	}
 
 	public async create(data: T): Promise<T> {

@@ -11,10 +11,7 @@ export const TicketTabletBody = ({ tickets }: TicketsTableProps) => {
 	return (
 		<TableBody>
 			{tickets.map(ticket => (
-				<TableRow
-					key={ticket.id}
-					sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-				>
+				<TableRow key={ticket.id} sx={{ '& td, & th': { border: 0 } }}>
 					<TableCell component='th' scope='row'>
 						{ticket.class.student.firstName} {ticket.class.student.lastName}
 					</TableCell>
@@ -26,7 +23,7 @@ export const TicketTabletBody = ({ tickets }: TicketsTableProps) => {
 					</TableCell>
 					<TableCell align='right'>{ticket.class.duration}</TableCell>
 					<TableCell
-						sx={{ color: ticket.isPaid ? 'green' : 'red' }}
+						sx={{ color: ticket.isPaid ? 'green' : 'red', cursor: 'pointer' }}
 						onClick={() => {
 							dispatch(handlePaidTicket(ticket))
 								.then(() => {
