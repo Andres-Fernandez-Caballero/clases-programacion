@@ -2,18 +2,28 @@ import MainRouter from '@routes/MainRouter';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { CssBaseline } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useAppDispatch } from '@store/hooks/hook';
+import { ReactElement, useEffect } from 'react';
 import { getTickets } from '@slyces/ticket.slice';
+import { useAppDispatch, useAppSelector } from '@store/hooks/hook';
+import { getStudents, selectStudents } from '@slyces/students.slice';
+import { messageError } from '@components/Toast';
 
-function App(): React.ReactElement {
+function App(): ReactElement {
 	const dispatch = useAppDispatch();
+	const { students } = useAppSelector(selectStudents);
 
 	useEffect(() => {
-		dispatch(getTickets())
-			.then(() => console.log('Tickets loaded'))
-			.catch(() => console.log('Error'));
+		Promise.all([dispatch(getTickets()), dispatch(getStudents())])
+			.then(() => {
+				console.log('Todos los recursos cargados');
+				console.log('students', students);
+			})
+			.catch(() => {
+				console.error('no se pudieron cargar los recursos');
+				messageError('no se pudieron cargar los recursos');
+			});
 	}, []);
+
 	return (
 		<>
 			<CssBaseline />

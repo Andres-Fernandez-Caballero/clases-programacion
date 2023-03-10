@@ -18,13 +18,10 @@ export const DenseTable = ({ tickets }: TicketsTableProps) => {
 				<EmptyData />
 			) : (
 				<TableContainer component={Paper}>
-					<Table
-						sx={{ minWidth: 650 }}
-						size='small'
-						aria-label='a dense table'
-					></Table>
-					<TicketTableHead />
-					<TicketTabletBody tickets={tickets} />
+					<Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
+						<TicketTableHead />
+						<TicketTabletBody tickets={tickets} />
+					</Table>
 				</TableContainer>
 			)}
 		</>

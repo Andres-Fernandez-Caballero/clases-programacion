@@ -19,16 +19,21 @@ import { IProgramingLeanguaje, IStudent } from '@interfaces/Domain';
 import {
 	IClassFirebaseEntity,
 	IStudentFirebaseEntity,
+	ITicketFirebaseEntity,
 } from '@interfaces/FirebaseEntitys';
 import ClassService from '@services/FirebaseServices/entityServices/ClassService';
 import StudentService from '@services/FirebaseServices/entityServices/StudentService';
 import { FormControlCustom } from '@styled/Forms.styled';
 import { CLASS_PRICE } from '@constants/price';
 import DialogTicket from '@components/DialogTicket';
-import TicketService from '@/services/FirebaseServices/entityServices/TicketService';
-import { message, messageError } from '@components/Toast';
+import { useAppDispatch } from '@store/hooks/hook';
+import { addTicket } from '@slyces/ticket.slice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const ClassCreate: React.FunctionComponent = () => {
+export const ClassCreate: React.FunctionComponent = () => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const classDtoInitState: IClassFirebaseEntity = {
 		dateTime: moment().format('YYYY-MM-DDTHH:mm'),
 		duration: 1,
@@ -122,28 +127,38 @@ const ClassCreate: React.FunctionComponent = () => {
 
 	const handleOnConfirm = () => {
 		const classService = new ClassService();
-		const ticketService = new TicketService();
-
+		const newTicket: ITicketFirebaseEntity = {
+			amount: price * classState.duration,
+			date: moment().format('YYYY-MM-DD'),
+			class: classState,
+			isPaid: false,
+		};
+		const toastRef = toast.loading('Procesando datos...');
 		Promise.allSettled([
 			classService.create(classState),
-			ticketService.create({
-				amount: price * classState.duration,
-				date: moment().format('YYYY-MM-DD'),
-				class: classState,
-				isPaid: false,
-			}),
+			dispatch(addTicket(newTicket)),
 		])
 			.then(() => {
-				message('Clase registrada con exito');
+				toast.update(toastRef, {
+					render: 'Clase almacenada con exito ',
+					type: 'success',
+					isLoading: false,
+					autoClose: 1500,
+				});
+				navigate('/');
 			})
 			.catch(() => {
-				messageError('Error al registrar la clase');
+				toast.update(toastRef, {
+					render: 'Error al guardar la clase',
+					type: 'error',
+					isLoading: false,
+					autoClose: 1500,
+				});
 			});
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
 		openDoalogTicket();
 	};
 
@@ -235,4 +250,3 @@ const ClassCreate: React.FunctionComponent = () => {
 		</>
 	);
 };
-export default ClassCreate;

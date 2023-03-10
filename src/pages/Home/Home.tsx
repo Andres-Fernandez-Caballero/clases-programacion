@@ -1,6 +1,4 @@
 import { logout } from '@/store/slyces/auth.slyce';
-import React, { useEffect, useState } from 'react';
-import { ITicket } from '@/interfaces/Domain';
 import styles from './Home.module.css';
 import Table from '@components/Table';
 import EstadisticaHome from '@components/EstadisticaHome';
@@ -9,21 +7,28 @@ import { useAppDispatch, useAppSelector } from '@store/hooks/hook';
 import { selectTickets } from '@slyces/ticket.slice';
 import { MONTHS } from '@constants/date';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
+import React from 'react';
 
 export const Home: React.FunctionComponent = () => {
 	const dispatch = useAppDispatch();
 	const { tickets } = useAppSelector(selectTickets);
-	const [ticketsFromCurrentMonth, setTicketsFromCurrentMonth] = useState(
-		[] as ITicket[]
-	);
-	useEffect(() => {
-		setTicketsFromCurrentMonth(
-			tickets.filter(
-				(ticket: ITicketFirebaseEntity) =>
-					moment(ticket.class.dateTime).month() === moment().month()
-			)
-		);
+
+	const [ticketsFromCurrentMonth, setTiketsFromCurrentMonth] = React.useState<
+		ITicketFirebaseEntity[]
+	>([]);
+
+	React.useEffect(() => {
+		const currentTikests = () => {
+			setTiketsFromCurrentMonth(
+				tickets.filter(
+					(ticket: ITicketFirebaseEntity) =>
+						moment(ticket.class.dateTime).month() === moment().month()
+				)
+			);
+		};
+		currentTikests();
 	}, [tickets]);
+	console.log('tickets', tickets);
 
 	return (
 		<main className={styles.container}>
@@ -31,12 +36,12 @@ export const Home: React.FunctionComponent = () => {
 
 			<section>
 				<h2>
-					clases Facturadas en{' '}
+					clases Facturadas en&nbsp;
 					<span style={{ color: 'cadetblue' }}>{MONTHS[moment().month()]}</span>
 				</h2>
+				<EstadisticaHome tikests={ticketsFromCurrentMonth} />
 				<Table tickets={ticketsFromCurrentMonth} />
 			</section>
-			<EstadisticaHome tikests={ticketsFromCurrentMonth} />
 			<section>
 				<button
 					onClick={() => {

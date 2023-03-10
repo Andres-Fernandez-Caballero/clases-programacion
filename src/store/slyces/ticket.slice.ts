@@ -1,9 +1,8 @@
 import { ITicketFirebaseEntity } from '@/interfaces/FirebaseEntitys';
 import TicketService from '@/services/FirebaseServices/entityServices/TicketService';
 import { IAsyncState, IStateWhitError } from '@/store/interfaces/state';
-
 import type { RootState } from '@/store';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment/moment';
 
 export interface ITicketState extends IAsyncState, IStateWhitError {
@@ -14,12 +13,13 @@ export interface ITicketState extends IAsyncState, IStateWhitError {
 export const ticketSlice = createSlice({
 	name: 'ticket',
 	initialState: {
-		tickets: [],
+		tickets: [] as ITicketFirebaseEntity[],
 		loading: false,
 		error: null,
 	},
+
 	reducers: {
-		setTickets: (state, action) => {
+		setTickets: (state, action: PayloadAction<ITicketFirebaseEntity[]>) => {
 			state.tickets = action.payload;
 		},
 		loadingOff(state) {
@@ -37,7 +37,7 @@ export const getTickets =
 	() =>
 	async (
 		dispatch: (arg0: {
-			payload: unknown;
+			payload: ITicketFirebaseEntity[] | undefined;
 			type: 'ticket/setTickets' | 'ticket/loadingOff' | 'ticket/loadingOn';
 		}) => void
 	) => {
@@ -68,6 +68,21 @@ export const handlePaidTicket =
 		dispatch(loadingOff());
 	};
 
-export const selectTickets = (state: RootState) => state.tikets;
+export const addTicket =
+	(ticket: ITicketFirebaseEntity) =>
+	async (dispatch: (arg0: unknown) => void, getState: () => RootState) => {
+		try {
+			dispatch(loadingOn());
+			const ticketService = new TicketService();
+			const newTicket = await ticketService.create(ticket);
+			console.log('nuevo tiket', newTicket);
+			console.log('tickets iniciales', getState().tikets.tickets.length);
+			dispatch(getTickets());
+			console.log('tickets finales', getState().tikets.tickets.length);
+		} finally {
+			dispatch(loadingOff());
+		}
+	};
 
+export const selectTickets = (state: RootState) => state.tikets;
 export default ticketSlice.reducer;
