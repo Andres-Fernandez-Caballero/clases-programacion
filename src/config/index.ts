@@ -8,6 +8,7 @@ const {
 	VITE_APP_FIREBASE_SORAGE_BUCKET,
 	VITE_APP_NAME,
 	BASE_URL,
+	VITE_MESSAGING_EMAIL_URL,
 } = import.meta.env;
 
 export const AppConfig = {
@@ -23,4 +24,8 @@ export const firebaseConfig = {
 	messaginSenderId: VITE_APP_FIREBASE_MESSAGIN_SENDER_ID,
 	appId: VITE_APP_FIREBASE_APP_ID,
 	measurementId: VITE_APP_FIREBASE_MEASUREMENT_ID,
+};
+
+export const senderConfig = {
+	emailSenderUrl: VITE_MESSAGING_EMAIL_URL,
 };

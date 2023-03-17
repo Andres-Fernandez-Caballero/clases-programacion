@@ -30,6 +30,9 @@ import { useAppDispatch } from '@store/hooks/hook';
 import { addTicket } from '@slyces/ticket.slice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { message, messageError } from '@components/Toast';
+import { sendEmail } from '@/intercept/emailSender.interceptor';
+import { DATE_FORMAT_DIA_MES_ANIO } from '@constants/date';
 
 export const ClassCreate: React.FunctionComponent = () => {
 	const navigate = useNavigate();
@@ -47,7 +50,6 @@ export const ClassCreate: React.FunctionComponent = () => {
 			birthDate: '',
 		},
 	};
-
 	const [classState, setClassState] = useState(classDtoInitState);
 	const [students, setStudents] = useState([] as IStudent[]);
 	const [popUpVisible, setPopUpVisible] = useState(false);
@@ -145,6 +147,45 @@ export const ClassCreate: React.FunctionComponent = () => {
 					isLoading: false,
 					autoClose: 1500,
 				});
+				sendEmail({
+					addressed: classState.student.email,
+					subject: 'Resumen de la clase',
+					messageInHtmlFormat: `<h1> Resumen de la clase del ${moment(
+						classState.dateTime
+					).format(DATE_FORMAT_DIA_MES_ANIO)} </h1>
+					<p> Nombre: ${classState.student.firstName} ${classState.student.lastName}</p>
+					<p> Apellido: ${classState.student.lastName} </p>
+					<p> Fecha: ${classState.dateTime} </p>
+					<p> Duracion: ${classState.duration} </p>
+					<p> Lenguaje: ${classState.programingLeanguage.name} </p>
+					<p> Precio por hora: ${price} </p>
+					<h2> Precio total: ${price * classState.duration} </h2>`,
+				})
+					.then(() => {
+						message('Email enviado');
+					})
+					.catch(() => {
+						messageError('Error al enviar el email');
+					});
+				sendEmail({
+					addressed: 'andres.fernandezcaballero@davinci.edu.ar',
+					subject: 'Resumen de la clase',
+					messageInHtmlFormat: `<h1> Resumen de la clase </h1>
+					<p> Nombre: ${classState.student.firstName} ${classState.student.lastName}</p>
+					<p> Apellido: ${classState.student.lastName} </p>
+					<p> Fecha: ${classState.dateTime} </p>
+					<p> Duracion: ${classState.duration} </p>
+					<p> Lenguaje: ${classState.programingLeanguage.name} </p>
+					<p> Precio por hora: ${price} </p>
+					<h2> Precio total: ${price * classState.duration} </h2>`,
+				})
+					.then(() => {
+						message('Email enviado');
+					})
+					.catch(error => {
+						messageError('Error al enviar el email');
+						console.log(error);
+					});
 				navigate('/');
 			})
 			.catch(() => {
