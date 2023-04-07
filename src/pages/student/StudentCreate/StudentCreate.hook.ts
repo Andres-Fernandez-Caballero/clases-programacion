@@ -14,6 +14,14 @@ export const useDtoStudentCreate = () => {
 	const [studentState, setStudentState] = useState(initState);
 
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const targetName = event.target.name;
+		if (targetName === 'firstName' || targetName === 'lastName') {
+			// capitalize first letter
+			event.target.value =
+				event.target.value.charAt(0).toUpperCase() +
+				event.target.value.slice(1);
+		}
+
 		setStudentState({
 			...studentState,
 			[event.target.name]: event.target.value,
