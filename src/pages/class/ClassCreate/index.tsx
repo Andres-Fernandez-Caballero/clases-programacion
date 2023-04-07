@@ -64,15 +64,15 @@ const Component: FC = (): ReactElement => {
 					render: 'Clase almacenada con exito ',
 					type: 'success',
 					isLoading: false,
-					autoClose: 1500,
+					autoClose: 2000,
 				});
 				closeDialogTicket();
 				toast('Enviando Comprobante...', {
-					autoClose: 1500,
+					autoClose: 2000,
 				});
 				if (ticket?.class?.student !== undefined) {
 					sendEmail({
-						addressed: 'andres.fernandezcaballero@davinci.edu.ar',
+						addressed: ticket.class.student.email,
 						subject: 'Clase programada',
 						messageInHtmlFormat: ReactDomServer.renderToString(
 							<TicketDetail ticketItem={ticket} />
