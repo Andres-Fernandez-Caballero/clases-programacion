@@ -108,7 +108,7 @@ const handleError =
 	() =>
 	(dispatch: (arg0: { payload: string; type: 'auth/setError' }) => void) => {
 		dispatch(setError('credenciales incorrectas'));
-		throw new Error('Credenciales incorrectas -_-');
+		throw new Error('Credenciales incorrectas 🙀');
 	};
 
 export const selectAuth = (state: RootState) => state.auth;

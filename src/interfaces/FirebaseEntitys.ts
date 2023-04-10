@@ -5,6 +5,12 @@ export interface IFirebaseEntity {
 	created?: string;
 }
 
+export interface IUserDataFirebaseEntity extends IFirebaseEntity {
+	pricePerHour: number;
+	CBU: string;
+	MpAlias: string;
+}
+
 export interface IClassFirebaseEntity extends IFirebaseEntity, IClass {}
 
 export interface IStudentFirebaseEntity extends IFirebaseEntity, IStudent {}

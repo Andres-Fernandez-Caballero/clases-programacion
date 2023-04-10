@@ -5,6 +5,7 @@ const root = '/';
 export const PATH_NAME = {
 	ROOT: root,
 	HOME: 'Home',
+	PROFILE: 'Profile',
 	ABOUT: 'About',
 	STUDENT: 'Alumnos',
 	CLASS: 'Clases',
@@ -19,6 +20,8 @@ export const PATH_NAME = {
 export const URL = {
 	ROOT: root,
 	HOME: root,
+
+	PROFILE: root + PATH_NAME.PROFILE,
 	ABOUT: root + PATH_NAME.ABOUT,
 
 	STUDENT: root + PATH_NAME.STUDENT,
@@ -35,9 +38,10 @@ export const URL = {
 
 export const navBarLinks: ILink[] = [
 	{ name: PATH_NAME.HOME, url: URL.HOME },
-	{ name: PATH_NAME.ABOUT, url: URL.ABOUT },
+	{ name: PATH_NAME.PROFILE, url: URL.PROFILE },
 	{ name: PATH_NAME.STUDENT, url: URL.STUDENT },
 	{ name: PATH_NAME.CREATE_STUDENT, url: URL.STUDENT_CREATE },
 	{ name: PATH_NAME.CREATE_CLASS, url: URL.CLASS_CREATE },
 	{ name: PATH_NAME.TICKET, url: URL.TICKET },
+	{ name: PATH_NAME.ABOUT, url: URL.ABOUT },
 ];
