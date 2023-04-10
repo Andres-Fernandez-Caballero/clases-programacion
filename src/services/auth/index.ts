@@ -6,29 +6,36 @@ import {
 	signInWithEmailAndPassword,
 	signOut as signOutGoogle,
 } from 'firebase/auth';
+import UserService from '@services/FirebaseServices/entityServices/UserService';
 
 const auth = getAuth(firebaseApp);
 
 export const signIn = async (dtoLogin: IloginDto) => {
 	const { email, password } = dtoLogin;
-	const userCredeentials = await signInWithEmailAndPassword(
+	const userCredential = await signInWithEmailAndPassword(
 		auth,
 		email,
 		password
 	);
 
-	const user: IUserCredential = {
+	const userService = new UserService();
+	const userData = await userService.getByUid(userCredential.user.uid);
+	if ((await userData) === null) {
+		await userService.createById(userCredential.user.uid);
+	}
+
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+	return {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
-		accessToken: userCredeentials.user.accessToken,
-		displayName: userCredeentials.user.displayName,
-		email: userCredeentials.user.email,
-		phoneNumber: userCredeentials.user.phoneNumber,
-		photoURL: userCredeentials.user.photoURL,
-		uid: userCredeentials.user.uid,
-	};
-
-	return user;
+		accessToken: userCredential.user.accessToken,
+		displayName: userCredential.user.displayName,
+		email: userCredential.user.email,
+		phoneNumber: userCredential.user.phoneNumber,
+		photoURL: userCredential.user.photoURL,
+		uid: userCredential.user.uid,
+		userData,
+	} as IUserCredential;
 };
 
 export const signOut = async () => {

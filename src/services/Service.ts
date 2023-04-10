@@ -4,7 +4,7 @@ import FirebaseService from '@services/FirebaseServices/FirebaseService';
 abstract class Service<E extends IFirebaseEntity> {
 	private readonly entityService: FirebaseService<E>;
 
-	constructor(folder: string) {
+	protected constructor(folder: string) {
 		this.entityService = new FirebaseService(folder);
 	}
 

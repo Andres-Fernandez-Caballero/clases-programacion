@@ -11,19 +11,22 @@ import { OnChangeSelectorDatetime } from '@pages/class/ClassCreate/ClassCreate.i
 import { useOpenCloseDialogTicket } from '@pages/class/ClassCreate/DialogTicket/DialogTicket.hooks';
 import DialogTicket from '@pages/class/ClassCreate/DialogTicket';
 import { CLASS_PRICE } from '@constants/price';
-import { useAppDispatch } from '@store/hooks/hook';
+import { useAppDispatch, useAppSelector } from '@store/hooks/hook';
 import { addTicket } from '@slyces/ticket.slice';
 import { URL } from '@constants/routes';
 import { useNavigate } from 'react-router-dom';
 import { sendEmail } from '@/intercept/emailSender.interceptor';
 import ReactDomServer from 'react-dom/server';
 import { TicketDetail } from '@pages/class/ClassCreate/DialogTicket/TicketDetail';
+import { selectAuth } from '@slyces/auth.slyce';
 
 const INIT_DURATION_CLASS = 1;
 const DURATION_CLASS_RANGE = 0.5;
 const MAX_DURATION_CLASS = 5;
 
 const Component: FC = (): ReactElement => {
+	const { user } = useAppSelector(selectAuth);
+
 	const {
 		selectProgramingLanguageById,
 		selectStudentById,
@@ -34,7 +37,10 @@ const Component: FC = (): ReactElement => {
 		updatePrice,
 		price,
 		programingLanguageSelected,
-	} = useClassCreateForm(INIT_DURATION_CLASS, CLASS_PRICE);
+	} = useClassCreateForm(
+		INIT_DURATION_CLASS,
+		user?.userData?.pricePerHour ?? CLASS_PRICE
+	);
 
 	const { openDialogTicket, isOpen, closeDialogTicket } =
 		useOpenCloseDialogTicket();

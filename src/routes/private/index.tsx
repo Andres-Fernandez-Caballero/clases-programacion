@@ -6,6 +6,7 @@ import StudentList from '@pages/student/StudentList';
 import Tickets from '@pages/Tikets';
 import StudentCreate from '@pages/student/StudentCreate';
 import NavigableLayour from '@components/layers/NavigableLayout';
+import Profile from '@pages/Profile';
 
 const PrivateRoutes = () => {
 	return (
@@ -15,6 +16,7 @@ const PrivateRoutes = () => {
 				element={<NavigableLayour navBarLinks={navBarLinks} />}
 			>
 				<Route index element={<Home />} />
+				<Route path={PATH_NAME.PROFILE} element={<Profile />} />
 				<Route path={PATH_NAME.CLASS} element={<ClassCreate />}>
 					<Route path={PATH_NAME.CREATE} element={<ClassCreate />} />
 				</Route>
