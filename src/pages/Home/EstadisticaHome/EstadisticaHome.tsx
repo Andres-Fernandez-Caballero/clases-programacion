@@ -18,12 +18,23 @@ export const EstadisticaHome: React.FunctionComponent<EstadisticaHomeProps> = ({
 	};
 
 	return (
-		<section>
-			<h3>Estadisticas mensuales</h3>
-			<p>
-				Ganancia mensual{' '}
-				<span style={{ color: 'darkcyan' }}>${getGananciaMensual()}</span>
-			</p>
+		<section
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'space-between',
+			}}
+		>
+			<article>
+				<h3>Ganancia mensual</h3>
+				<p style={{ fontSize: '2rem', color: 'darkcyan' }}>
+					${getGananciaMensual()}
+				</p>
+			</article>
+			<article>
+				<h3>Clases Realizadas</h3>
+				<p style={{ fontSize: '2rem', color: 'darkcyan' }}>{tikests.length}</p>
+			</article>
 		</section>
 	);
 };

@@ -1,5 +1,11 @@
-.container table,
-th,
-td {
-	border: 1px solid black;
+.container {
+	margin: 0 32px;
+}
+
+.card,
+.card p {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 32px;
 }

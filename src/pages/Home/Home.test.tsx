@@ -17,7 +17,7 @@ describe('Home', () => {
 		);
 
 		expect(asFragment()).toMatchSnapshot();
-		expect(queryByText('clases Facturadas en')).toBeTruthy();
+		expect(queryByText('Ganancia mensual')).toBeTruthy();
 
 		const currentMonth = MONTHS[moment().month()];
 		expect(queryByText(currentMonth)).toBeTruthy();
