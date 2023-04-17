@@ -11,21 +11,60 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { AppConfig } from '@/config';
 import owl from '@assets/owl.svg';
-import { useAppSelector } from '@/store/hooks/hook';
-import { selectAuth } from '@/store/slyces/auth.slyce';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hook';
+import { logout, selectAuth } from '@/store/slyces/auth.slyce';
 import { useToggle } from './hooks/toggleButtonNav';
 import NavigationLinks from './NavigationLinks/';
 import React from 'react';
+import { toast } from 'react-toastify';
+import { URL } from '@constants/routes';
+import { useNavigate } from 'react-router-dom';
 
 export interface NavbarProps {
 	navLinks: ILink[];
 }
-
+interface SettingItem {
+	name: string;
+	action: () => void;
+}
 export const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 	const auth = useAppSelector(selectAuth);
 	const anchorUser = useToggle();
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
-	const userSettingsLinks = ['Profile', 'Account', 'Dashboard', 'Logout'];
+	const userSettingsLinks: SettingItem[] = [
+		{
+			name: 'Profile',
+			action: () => {
+				navigate(URL.PROFILE);
+				anchorUser.toggleClose();
+			},
+		},
+		{
+			name: 'Account',
+			action: () => {
+				toast('Account');
+				anchorUser.toggleClose();
+			},
+		},
+		{
+			name: 'Logout',
+			action: () => {
+				dispatch(logout())
+					.then(() => {
+						toast('Adios ... 😿');
+					})
+					.catch(error => {
+						console.log(error);
+					})
+					.finally(() => {
+						console.log('finally logout');
+					});
+				anchorUser.toggleClose();
+			},
+		},
+	];
 
 	return (
 		<AppBar position='static'>
@@ -86,9 +125,9 @@ export const NavBar: React.FC<NavbarProps> = ({ navLinks }: NavbarProps) => {
 							open={Boolean(anchorUser.state)}
 							onClose={anchorUser.toggleClose}
 						>
-							{userSettingsLinks.map(setting => (
-								<MenuItem key={setting} onClick={anchorUser.toggleClose}>
-									<Typography textAlign='center'>{setting}</Typography>
+							{userSettingsLinks.map((setting: SettingItem) => (
+								<MenuItem key={setting.name} onClick={setting.action}>
+									<Typography textAlign='center'>{setting.name}</Typography>
 								</MenuItem>
 							))}
 						</Menu>

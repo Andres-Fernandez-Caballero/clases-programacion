@@ -1,11 +1,11 @@
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 import { TicketsTableProps } from '@components/Table/interfaces';
 import { TicketTableHead } from '@components/Table/components/TicketTableHead';
 import { TicketTabletBody } from '@components/Table/components/TicketTabletBody';
 import { EmptyData } from '@components/Table/components/EmptyData';
+import { Card } from '@mui/material';
 
 export interface ClassTableProps {
 	tickets: ITicketFirebaseEntity[];
@@ -17,8 +17,8 @@ export const DenseTable = ({ tickets }: TicketsTableProps) => {
 			{tickets.length === 0 ? (
 				<EmptyData />
 			) : (
-				<TableContainer component={Paper}>
-					<Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
+				<TableContainer component={Card} sx={{ margin: '8px' }}>
+					<Table padding='none' size='small' aria-label='a dense table'>
 						<TicketTableHead />
 						<TicketTabletBody tickets={tickets} />
 					</Table>

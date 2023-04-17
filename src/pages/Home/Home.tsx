@@ -1,16 +1,17 @@
-import { logout } from '@/store/slyces/auth.slyce';
 import styles from './Home.module.css';
 import Table from '@components/Table';
-import EstadisticaHome from '@components/EstadisticaHome';
+
 import moment from 'moment';
-import { useAppDispatch, useAppSelector } from '@store/hooks/hook';
+import { useAppSelector } from '@store/hooks/hook';
 import { selectTickets } from '@slyces/ticket.slice';
 import { MONTHS } from '@constants/date';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 import React from 'react';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { Card } from '@mui/material';
+import EstadisticaHome from '@pages/Home/EstadisticaHome';
 
 export const Home: React.FunctionComponent = () => {
-	const dispatch = useAppDispatch();
 	const { tickets } = useAppSelector(selectTickets);
 
 	const [ticketsFromCurrentMonth, setTiketsFromCurrentMonth] = React.useState<
@@ -32,34 +33,24 @@ export const Home: React.FunctionComponent = () => {
 
 	return (
 		<main className={styles.container}>
-			<h1>Panel de control</h1>
+			<h1 style={{ color: '#546556' }}> 🦖Dashboard </h1>
+			<Grid2 container spacing={2}>
+				<Grid2 xs={12} md={6}>
+					<Card className={styles.card}>
+						<h2>
+							Periodo actual:&nbsp;
+							<span style={{ color: 'cadetblue' }}>
+								{MONTHS[moment().month()]}
+							</span>
+						</h2>
+						<EstadisticaHome tikests={ticketsFromCurrentMonth} />
+					</Card>
+				</Grid2>
 
-			<section>
-				<h2>
-					clases Facturadas en&nbsp;
-					<span style={{ color: 'cadetblue' }}>{MONTHS[moment().month()]}</span>
-				</h2>
-				<EstadisticaHome tikests={ticketsFromCurrentMonth} />
-				<Table tickets={ticketsFromCurrentMonth} />
-			</section>
-			<section>
-				<button
-					onClick={() => {
-						dispatch(logout())
-							.then(() => {
-								console.log('logout');
-							})
-							.catch(error => {
-								console.log(error);
-							})
-							.finally(() => {
-								console.log('finally logout');
-							});
-					}}
-				>
-					Logout
-				</button>
-			</section>
+				<Grid2 xs={12} md={6}>
+					<Table tickets={ticketsFromCurrentMonth} />
+				</Grid2>
+			</Grid2>
 		</main>
 	);
 };
