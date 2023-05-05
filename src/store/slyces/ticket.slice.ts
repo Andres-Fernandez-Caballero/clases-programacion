@@ -84,5 +84,11 @@ export const addTicket =
 		}
 	};
 
+export const deleteTicket =
+	(ticketId: string) => async (dispatch: (arg0: unknown) => void) => {
+		await new TicketService().delete(ticketId);
+		dispatch(getTickets());
+	};
+
 export const selectTickets = (state: RootState) => state.tikets;
 export default ticketSlice.reducer;

@@ -3,13 +3,28 @@ import TableCell from '@mui/material/TableCell';
 import moment from 'moment/moment';
 import TableBody from '@mui/material/TableBody';
 import { TicketsTableProps } from '@components/Table/interfaces';
-import { handlePaidTicket } from '@slyces/ticket.slice';
+import { deleteTicket, handlePaidTicket } from '@slyces/ticket.slice';
 import { useAppDispatch } from '@store/hooks/hook';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const TicketTabletBody = ({ tickets }: TicketsTableProps) => {
 	const dispatch = useAppDispatch();
+
+	const handleDeleteTicket = (ticketId: string) => {
+		const response = confirm('¿Estas seguro de eliminar este ticket?');
+		if (response) {
+			dispatch(deleteTicket(ticketId))
+				.then(() => {
+					toast.success('Ticket eliminado');
+				})
+				.catch(() => {
+					toast.error('Error al eliminar ticket');
+				});
+		}
+	};
+
 	return (
 		<TableBody>
 			{tickets.map(ticket => (
@@ -46,6 +61,17 @@ export const TicketTabletBody = ({ tickets }: TicketsTableProps) => {
 							}}
 						>
 							{ticket.isPaid ? 'CANCELAR PAGO' : 'CONFIRMAR PAGO'}
+						</Button>
+						<Button
+							sx={{ marginLeft: '8px' }}
+							variant='contained'
+							color='error'
+							startIcon={<DeleteIcon />}
+							onClick={() => {
+								handleDeleteTicket(ticket.id != null ? ticket.id : '');
+							}}
+						>
+							<span></span>
 						</Button>
 					</TableCell>
 				</TableRow>
