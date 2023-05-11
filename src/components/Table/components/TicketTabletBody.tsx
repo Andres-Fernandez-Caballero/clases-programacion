@@ -51,12 +51,25 @@ export const TicketTabletBody = ({ tickets }: TicketsTableProps) => {
 						<Button
 							variant={ticket.isPaid ? 'outlined' : 'contained'}
 							onClick={() => {
+								const message = toast.loading('Confirmando pago...');
 								dispatch(handlePaidTicket(ticket))
 									.then(() => {
-										toast.success('Pago confirmado');
+										toast.update(message, {
+											render: 'Pago confirmado con exito',
+											type: 'success',
+											autoClose: 3000,
+											isLoading: false,
+											closeButton: true,
+										});
 									})
 									.catch(() => {
-										toast.error('Error al confirmar pago');
+										toast.update(message, {
+											render: 'Error al confirmar pago',
+											type: 'error',
+											autoClose: 3000,
+											isLoading: false,
+											closeButton: true,
+										});
 									});
 							}}
 						>
