@@ -33,13 +33,17 @@ class TicketService extends Service<ITicketFirebaseEntity> {
 	}
 
 	async cancelPaidTicket(id: string): Promise<void> {
-		const regist = await this.getEntityService().getById(id);
+		const register = await this.getEntityService().getById(id);
 		await this.getEntityService().update(id, {
-			...regist,
+			...register,
 			isPaid: false,
 			paymentDate: '',
 		});
 		console.warn('regist exito cancelado');
+	}
+
+	async delete(id: string): Promise<void> {
+		await this.getEntityService().delete(id);
 	}
 }
 

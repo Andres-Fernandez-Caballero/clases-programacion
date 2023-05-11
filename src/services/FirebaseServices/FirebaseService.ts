@@ -9,6 +9,7 @@ import {
 	getDocs,
 	updateDoc,
 	doc,
+	deleteDoc,
 } from 'firebase/firestore';
 
 class FirebaseService<T extends IFirebaseEntity> {
@@ -50,6 +51,11 @@ class FirebaseService<T extends IFirebaseEntity> {
 			const data = doc.data() as T;
 			return { ...data, id: doc.id };
 		});
+	}
+
+	public async delete(id: string): Promise<void> {
+		const registry = doc(this.db, this.folder, id);
+		await deleteDoc(registry);
 	}
 }
 
