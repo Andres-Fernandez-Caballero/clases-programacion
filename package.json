@@ -24,6 +24,7 @@
 		"@mui/material": "^5.10.13",
 		"@mui/styled-engine-sc": "^5.10.6",
 		"@mui/system": "5.4.1",
+		"@mui/x-data-grid": "^6.3.1",
 		"@mui/x-date-pickers": "^5.0.10",
 		"@reduxjs/toolkit": "^1.9.1",
 		"@sendgrid/mail": "^7.7.0",

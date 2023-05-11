@@ -15,6 +15,18 @@ class StudentService extends Service<IStudentFirebaseEntity> {
 	async getAll(): Promise<IStudentFirebaseEntity[]> {
 		return await this.getEntityService().getAll();
 	}
+
+	async getById(id: string): Promise<IStudentFirebaseEntity> {
+		return await this.getEntityService().getById(id);
+	}
+
+	// async update(id: string, entity: IStudent): Promise<IStudentFirebaseEntity> {
+	// 	return await this.getEntityService().update(id, entity);
+	// }
+
+	async delete(id: string): Promise<void> {
+		return await this.getEntityService().delete(id);
+	}
 }
 
 export default StudentService;

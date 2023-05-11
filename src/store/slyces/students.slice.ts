@@ -56,6 +56,21 @@ export const addStudent =
 		await service.create(student);
 		dispatch(getStudents());
 	};
+
+export const deleteStudent =
+	(id: string) =>
+	async (
+		dispatch: (
+			arg0: (
+				dispatch: (arg0: { payload: unknown; type: string }) => void
+			) => Promise<void>
+		) => void
+	) => {
+		const service = new StudentService();
+		await service.delete(id);
+		await dispatch(getStudents());
+	};
+
 export const selectStudents = (state: RootState) => state.students;
 
 export default studentSlice.reducer;
