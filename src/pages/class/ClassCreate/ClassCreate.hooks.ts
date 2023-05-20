@@ -75,7 +75,7 @@ export const useClassCreateForm = (
 		return {
 			dateTime: moment(datetime).format('YYYY-MM-DDTHH:mm'),
 			duration,
-			programingLeanguage: programingLanguageSelected,
+			programingLanguage: programingLanguageSelected,
 			student: studentSelected,
 		};
 	};

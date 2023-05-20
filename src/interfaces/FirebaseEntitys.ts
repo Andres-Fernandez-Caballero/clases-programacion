@@ -1,4 +1,4 @@
-import { IClass, IProgramingLeanguaje, IStudent, ITicket } from './Domain';
+import { IClass, IProgramingLanguage, IStudent, ITicket } from './Domain';
 
 export interface IFirebaseEntity {
 	id?: string;
@@ -17,6 +17,6 @@ export interface IStudentFirebaseEntity extends IFirebaseEntity, IStudent {}
 
 export interface IProgramingLeanguajeFirebaseEntity
 	extends IFirebaseEntity,
-		IProgramingLeanguaje {}
+		IProgramingLanguage {}
 
 export interface ITicketFirebaseEntity extends IFirebaseEntity, ITicket {}
