@@ -6,7 +6,7 @@ export interface TicketDetailProps {
 export const ClassDetail = ({ classItem }: TicketDetailProps) => (
 	<main>
 		<header>
-			<h2>Clases de {classItem.programingLeanguage.name}</h2>
+			<h2>Clases de {classItem.programingLanguage.name}</h2>
 		</header>
 		<section>
 			<h3 style={{ margin: '0' }}>Alumno</h3>
@@ -24,7 +24,7 @@ export const ClassDetail = ({ classItem }: TicketDetailProps) => (
 			<div style={{ display: 'flex', gap: '8px' }}>
 				<p style={{ margin: '0' }}>
 					<strong>Tema: </strong>
-					{classItem.programingLeanguage.name}
+					{classItem.programingLanguage.name}
 				</p>
 				<p style={{ margin: '0' }}>
 					<strong>Duracion: </strong>

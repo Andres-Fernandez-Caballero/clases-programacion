@@ -11,10 +11,13 @@ import {
 	GridActionsCellItem,
 	GridColDef,
 	GridRowParams,
+	GridValueGetterParams,
 } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '@store/hooks/hook';
 import { deleteStudent } from '@slyces/students.slice';
+import { Link } from 'react-router-dom';
+import { URL } from '@constants/routes';
 
 export const StudentTable: React.FC<IStudentTableProps> = ({
 	items,
@@ -23,18 +26,22 @@ export const StudentTable: React.FC<IStudentTableProps> = ({
 
 	const columns: GridColDef[] = [
 		{
-			field: 'firstName',
-			headerName: 'Nombre',
-			type: 'string',
+			field: 'fullName',
+			headerName: 'Nombre y Apellido',
 			sortable: true,
 			flex: 0.5,
-		},
-		{
-			field: 'lastName',
-			headerName: 'Apellido',
-			type: 'string',
-			sortable: true,
-			flex: 0.5,
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			renderCell: (params: GridValueGetterParams) => (
+				// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+				<Link to={`${URL.STUDENT}/${params.row.id}`}>
+					{' '}
+					{params.row.firstName} {params.row.lastName}
+				</Link>
+			),
+			valueGetter: (params: GridValueGetterParams) =>
+				// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+				`${params.row.firstName} ${params.row.lastName}`,
 		},
 		{
 			field: 'dni',

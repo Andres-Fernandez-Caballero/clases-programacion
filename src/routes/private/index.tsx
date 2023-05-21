@@ -7,6 +7,7 @@ import Tickets from '@pages/Tikets';
 import StudentCreate from '@pages/student/StudentCreate';
 import NavigableLayour from '@components/layers/NavigableLayout';
 import Profile from '@pages/Profile';
+import StudentDetail from '@pages/student/StudentDetail';
 
 const PrivateRoutes = () => {
 	return (
@@ -21,8 +22,9 @@ const PrivateRoutes = () => {
 					<Route path={PATH_NAME.CREATE} element={<ClassCreate />} />
 				</Route>
 				<Route path={PATH_NAME.STUDENT}>
-					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
 					<Route index element={<StudentList />} />
+					<Route path={PATH_NAME.CREATE} element={<StudentCreate />} />
+					<Route path={`:id`} element={<StudentDetail />} />
 				</Route>
 				<Route path={PATH_NAME.TICKET} element={<Tickets />} />
 				<Route path='*' element={<div>404 NOT FOUND</div>} />

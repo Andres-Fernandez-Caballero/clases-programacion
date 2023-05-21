@@ -1,7 +1,7 @@
 export interface IClass {
 	dateTime: string;
 	duration: number;
-	programingLeanguage: IProgramingLeanguaje;
+	programingLanguage: IProgramingLanguage;
 	student: IStudent;
 }
 
@@ -14,7 +14,7 @@ export interface IStudent {
 	birthDate: string;
 }
 
-export interface IProgramingLeanguaje {
+export interface IProgramingLanguage {
 	name: string;
 }
 
@@ -24,4 +24,9 @@ export interface ITicket {
 	isPaid: boolean;
 	date: string; // date of the ticket;
 	paymentDate?: string | ''; // date of the payment;
+}
+
+export interface ZodiacSign {
+	name: string;
+	sign: string;
 }

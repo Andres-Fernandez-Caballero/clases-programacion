@@ -9,6 +9,7 @@ const {
 	VITE_APP_NAME,
 	BASE_URL,
 	VITE_MESSAGING_EMAIL_URL,
+	VITE_ZODIAC_SERVICE_URL,
 } = import.meta.env;
 
 export const AppConfig = {
@@ -28,4 +29,8 @@ export const firebaseConfig = {
 
 export const senderConfig = {
 	emailSenderUrl: VITE_MESSAGING_EMAIL_URL,
+};
+
+export const zodiacConfig = {
+	zodiacServiceUrl: VITE_ZODIAC_SERVICE_URL,
 };

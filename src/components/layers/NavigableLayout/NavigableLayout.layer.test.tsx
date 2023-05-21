@@ -28,10 +28,7 @@ describe('NavigableLayour', () => {
 		);
 
 		expect(asFragment()).toMatchSnapshot();
-		props.navBarLinks.forEach(link => {
-			// expect(queryByText(link.name)).toBeTruthy();
-		});
 		expect(queryByText('Test')).toBeTruthy();
-		expect(queryByText('Footer')).toBeTruthy();
+		expect(queryByText('ElectriCat')).toBeTruthy();
 	});
 });
