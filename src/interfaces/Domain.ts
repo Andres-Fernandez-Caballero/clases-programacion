@@ -25,3 +25,8 @@ export interface ITicket {
 	date: string; // date of the ticket;
 	paymentDate?: string | ''; // date of the payment;
 }
+
+export interface ZodiacSign {
+	name: string;
+	sign: string;
+}
