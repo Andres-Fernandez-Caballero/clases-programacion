@@ -20,16 +20,16 @@ const Footer: React.FC = () => {
 					<div className='footer-social'>
 						<ul>
 							<li>
-								<a href='watsapp'>{<WhatsAppIcon />}</a>
+								<a href='#'>{<WhatsAppIcon />}</a>
 							</li>
 							<li>
-								<a href='email'>{<EmailIcon />}</a>
+								<a href='#'>{<EmailIcon />}</a>
 							</li>
 							<li>
-								<a href='linkedin'>{<LocalPhoneIcon />}</a>
+								<a href='#'>{<LocalPhoneIcon />}</a>
 							</li>
 							<li>
-								<a href='#phone'>{<LinkedInIcon />}</a>
+								<a href='#'>{<LinkedInIcon />}</a>
 							</li>
 						</ul>
 					</div>
