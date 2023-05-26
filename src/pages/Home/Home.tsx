@@ -29,7 +29,6 @@ export const Home: React.FunctionComponent = () => {
 		};
 		currentTikests();
 	}, [tickets]);
-	console.log('tickets', tickets);
 
 	return (
 		<main className={styles.container}>

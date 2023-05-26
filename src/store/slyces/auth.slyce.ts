@@ -20,9 +20,14 @@ const defaultState: IAuthState = {
 };
 const initState = (): IAuthState => {
 	const credentials = getCookie(COOKIE_AUTH);
-	return credentials !== undefined
-		? { ...defaultState, user: credentials, isAuthenticate: true }
-		: defaultState;
+	return credentials === undefined
+		? defaultState
+		: {
+				user: credentials as Iuser,
+				isAuthenticate: true,
+				loading: false,
+				error: null,
+		  };
 };
 
 const authSlice = createSlice({
