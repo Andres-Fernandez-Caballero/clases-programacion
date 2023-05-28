@@ -12,6 +12,7 @@ export const PATH_NAME = {
 	CREATE: 'Create',
 	CREATE_STUDENT: 'Crear Alumno',
 	CREATE_CLASS: 'Crear Clase',
+	STATISTICS: 'Estadisticas',
 	AUTH: 'auth',
 	LOGIN: 'login',
 	TICKET: 'recibos',
@@ -30,8 +31,10 @@ export const URL = {
 	CLASS: root + PATH_NAME.CLASS,
 	CLASS_CREATE: root + PATH_NAME.CLASS + '/' + PATH_NAME.CREATE,
 
+	STATISTICS: root + PATH_NAME.STATISTICS,
+
 	TICKET: root + PATH_NAME.TICKET,
-	TIKECT_CREATE: root + PATH_NAME.TICKET + '/' + PATH_NAME.CREATE,
+	TICKET_CREATE: root + PATH_NAME.TICKET + '/' + PATH_NAME.CREATE,
 
 	LOGIN: root + PATH_NAME.AUTH + '/' + PATH_NAME.LOGIN,
 };
@@ -39,8 +42,7 @@ export const URL = {
 export const navBarLinks: ILink[] = [
 	{ name: PATH_NAME.HOME, url: URL.HOME },
 	{ name: PATH_NAME.STUDENT, url: URL.STUDENT },
-	{ name: PATH_NAME.CREATE_STUDENT, url: URL.STUDENT_CREATE },
-	{ name: PATH_NAME.CREATE_CLASS, url: URL.CLASS_CREATE },
 	{ name: PATH_NAME.TICKET, url: URL.TICKET },
+	{ name: PATH_NAME.STATISTICS, url: URL.STATISTICS },
 	{ name: PATH_NAME.ABOUT, url: URL.ABOUT },
 ];
