@@ -8,8 +8,9 @@ import { MONTHS } from '@constants/date';
 import { ITicketFirebaseEntity } from '@interfaces/FirebaseEntitys';
 import React from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Card } from '@mui/material';
-import EstadisticaHome from '@pages/Home/EstadisticaHome';
+import FabButton from '@components/layouts/FabButton';
+import { URL } from '@constants/routes';
+import AddIcon from '@mui/icons-material/Add';
 
 export const Home: React.FunctionComponent = () => {
 	const { tickets } = useAppSelector(selectTickets);
@@ -32,24 +33,20 @@ export const Home: React.FunctionComponent = () => {
 
 	return (
 		<main className={styles.container}>
-			<h1 style={{ color: '#546556' }}> 🦖Dashboard </h1>
-			<Grid2 container spacing={2}>
-				<Grid2 xs={12} md={6}>
-					<Card className={styles.card}>
-						<h2>
-							Periodo actual:&nbsp;
-							<span style={{ color: 'cadetblue' }}>
-								{MONTHS[moment().month()]}
-							</span>
-						</h2>
-						<EstadisticaHome tikests={ticketsFromCurrentMonth} />
-					</Card>
-				</Grid2>
-
-				<Grid2 xs={12} md={6}>
+			<h1 style={{ color: '#546556' }}>
+				{' '}
+				🦖Dashboard{' '}
+				<span style={{ color: 'cadetblue' }}>{MONTHS[moment().month()]}</span>
+			</h1>
+			<p>Resumen</p>
+			<Grid2 container>
+				<Grid2 xs={12} md={12}>
 					<Table tickets={ticketsFromCurrentMonth} />
 				</Grid2>
 			</Grid2>
+			<FabButton to={URL.CLASS_CREATE}>
+				<AddIcon />
+			</FabButton>
 		</main>
 	);
 };

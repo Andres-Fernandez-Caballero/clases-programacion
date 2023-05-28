@@ -81,7 +81,22 @@ const Component: FC = (): ReactElement => {
 						addressed: ticket.class.student.email,
 						subject: 'Clase programada',
 						messageInHtmlFormat: ReactDomServer.renderToString(
-							<TicketDetail ticketItem={ticket} />
+							<section>
+								<TicketDetail ticketItem={ticket} />
+								<h2>Medios de pago</h2>
+								<p>Podes pagar de las siguientes maneras</p>
+								<p>
+									Mercado pago al siguiente alias{' '}
+									<span>{user?.userData?.MpAlias}</span>
+								</p>
+								<p>
+									Transferencia bancaria al siguiente CBU{' '}
+									<span>{user?.userData?.CBU}</span>
+								</p>
+								<p>
+									<strong>Gracias por elegirme</strong>
+								</p>
+							</section>
 						),
 					})
 						.then()

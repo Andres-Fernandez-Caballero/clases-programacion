@@ -143,7 +143,7 @@ export const StudentTable: React.FC<IStudentTableProps> = ({
 	}));
 
 	return (
-		<>
+		<section>
 			{items.length === 0 ? (
 				<EmptyData />
 			) : (
@@ -156,6 +156,6 @@ export const StudentTable: React.FC<IStudentTableProps> = ({
 					/>
 				</div>
 			)}
-		</>
+		</section>
 	);
 };

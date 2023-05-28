@@ -6,6 +6,7 @@ import {
 	getDoc,
 	getFirestore,
 	setDoc,
+	updateDoc,
 } from 'firebase/firestore';
 import { firebaseApp } from '@/firebase/instance';
 import { CLASS_PRICE } from '@constants/price';
@@ -36,6 +37,19 @@ class UserService {
 		} else {
 			return null;
 		}
+	}
+
+	async updateByUid(uid: string, data: IUserDataFirebaseEntity) {
+		const docRef = doc(this.db, this.folder, uid);
+		await setDoc(docRef, data);
+	}
+
+	async updateByUidOneField(uid: string, field: string, data: string | number) {
+		const docRef = doc(this.db, this.folder, uid);
+		await updateDoc(docRef, {
+			[field]: data,
+		});
+		console.log('updateByUidOneField', field, data);
 	}
 }
 
